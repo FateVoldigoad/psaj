@@ -1,0 +1,168 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.container{
+display:flex;
+}
+
+/* Sidebar */
+
+.sidebar{
+width:230px;
+height:100vh;
+background:#2c3e50;
+color:white;
+padding:20px;
+}
+
+.sidebar h2{
+text-align:center;
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+padding:12px;
+margin:10px 0;
+border-radius:5px;
+cursor:pointer;
+}
+
+.sidebar ul li a{
+padding:12px;
+margin:10px 0;
+border-radius:5px;
+cursor:pointer;
+text-decoration: none;
+color: white;
+}
+
+.sidebar ul li:hover{
+background:#34495e;
+}
+
+.sidebar .active{
+background:#1abc9c;
+}
+
+/* Main */
+
+.main{
+flex:1;
+padding:20px;
+}
+
+/* Navbar */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:white;
+padding:15px 20px;
+border-radius:8px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.user{
+background:#1abc9c;
+padding:8px 15px;
+border-radius:20px;
+color:white;
+}
+
+/* Header Table */
+
+.table-header{
+display:flex;
+justify-content:space-between;
+margin-top:20px;
+margin-bottom:10px;
+}
+
+.btn-tambah{
+background:#1abc9c;
+border:none;
+padding:10px 15px;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+.btn-tambah:hover{
+background:#16a085;
+}
+
+.search{
+padding:8px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+/* Table */
+
+.table-container{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+table th, table td{
+padding:10px;
+text-align:center;
+border-bottom:1px solid #ddd;
+}
+
+table th{
+background:#1abc9c;
+color:white;
+}
+
+/* Status */
+
+.proses{
+color:orange;
+font-weight:bold;
+}
+
+.selesai{
+color:green;
+font-weight:bold;
+}
+
+.baru{
+color:red;
+font-weight:bold;
+}
+
+/* Button */
+
+.btn-tanggapi{
+background:#3498db;
+color:white;
+padding:6px 12px;
+text-decoration:none;
+border-radius:4px;
+font-size:14px;
+}
+
+.btn-tanggapi:hover{
+background:#2980b9;
+}
