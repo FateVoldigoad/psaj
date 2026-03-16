@@ -1,0 +1,138 @@
+/* Container utama */
+
+.chat-container{
+
+width:600px;
+height:85vh;
+margin:30px auto;
+background:white;
+border-radius:10px;
+display:flex;
+flex-direction:column;
+
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+
+}
+
+
+/* Header */
+
+.chat-header{
+
+display:flex;
+align-items:center;
+gap:10px;
+
+padding:15px;
+border-bottom:1px solid #ddd;
+
+background:#1abc9c;
+color:white;
+
+border-radius:10px 10px 0 0;
+
+}
+
+.guru-foto{
+
+width:40px;
+height:40px;
+border-radius:50%;
+
+}
+
+
+/* Area chat */
+
+.chat-box{
+
+flex:1;
+padding:15px;
+
+overflow-y:auto;
+background:#f4f6f9;
+
+display:flex;
+flex-direction:column;
+
+}
+
+
+/* Bubble chat */
+
+.chat{
+
+padding:10px 15px;
+margin:8px 0;
+border-radius:15px;
+max-width:70%;
+font-size:14px;
+
+}
+
+
+/* Chat guru */
+
+.guru{
+
+background:white;
+align-self:flex-start;
+
+border:1px solid #ddd;
+
+}
+
+
+/* Chat siswa */
+
+.siswa{
+
+background:#1abc9c;
+color:white;
+
+align-self:flex-end;
+
+}
+
+
+/* Input chat */
+
+.chat-input{
+
+display:flex;
+padding:10px;
+border-top:1px solid #ddd;
+
+}
+
+.chat-input input{
+
+flex:1;
+padding:10px;
+
+border:1px solid #ccc;
+border-radius:20px;
+
+outline:none;
+
+}
+
+.chat-input button{
+
+margin-left:10px;
+padding:10px 20px;
+
+border:none;
+background:#1abc9c;
+color:white;
+
+border-radius:20px;
+cursor:pointer;
+
+}
+
+.chat-input button:hover{
+
+background:#16a085;
+
+}
