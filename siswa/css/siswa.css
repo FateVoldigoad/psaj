@@ -3,14 +3,7 @@ body{
     background:#f4f6f9;
     margin:0;
     padding:0;
-
-    background-image: url('../assets/smkn.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height:100vh;
-
-    }
+}
     
     .container{
     text-align:center;
@@ -43,3 +36,65 @@ body{
     .card h2{
     margin-bottom:10px;
     }
+
+    /* Container pojok kanan */
+.notif-container{
+    position:fixed;
+    top:20px;
+    right:20px;
+    z-index:999;
+}
+
+/* Icon lonceng */
+.notif-icon{
+    background:#1abc9c;
+    color:white;
+    padding:12px;
+    border-radius:50%;
+    font-size:18px;
+    position:relative;
+}
+
+/* Badge angka */
+.notif-badge{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background:red;
+    color:white;
+    font-size:12px;
+    padding:3px 6px;
+    border-radius:50%;
+}
+
+/* Kotak inbox */
+.notif-box{
+    margin-top:10px;
+    width:260px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    padding:10px;
+}
+
+/* Judul */
+.notif-box h4{
+    margin-bottom:10px;
+    color:#2c3e50;
+}
+
+/* Item notif */
+.notif-item{
+    padding:10px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+}
+
+.notif-item:last-child{
+    border-bottom:none;
+}
+
+/* Efek hover */
+.notif-item:hover{
+    background:#f4f6f9;
+}

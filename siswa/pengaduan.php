@@ -11,7 +11,6 @@
 <div class="form-box">
 
 <div class="header">
-<img src="assets/logo.png" class="logo">
 <h2>Layanan Pengaduan Siswa</h2>
 <p>Kirim pengaduan kepada Guru BK</p>
 </div>

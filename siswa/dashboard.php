@@ -4,8 +4,17 @@
 <meta charset="UTF-8">
 <title>Dashboard Siswa</title>
 <link rel="stylesheet" href="css/siswa.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+
+<a href="curhat.php" class="notif-box">
+
+<i class="fa-solid fa-envelope"></i>
+        <span class="notif-badge">2</span>
+    </div>
+
+</a>
 
 <div class="container">
 

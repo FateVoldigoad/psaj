@@ -2,33 +2,31 @@
 <html>
 <head>
 
-<title>Curhat ke Guru BK</title>
+<title>Curhat Siswa</title>
 
-<link rel="stylesheet" href="css/siswa.css">
 <link rel="stylesheet" href="css/curhat.css">
 
 </head>
 
 <body>
 
-<div class="chat-container">
+<div class="chat-layout">
 
-<!-- Header Chat -->
+<!-- Sidebar (Guru BK dipilih) -->
+<div class="chat-list">
 
+</div>
+
+<!-- Area Chat -->
+<div class="chat-area">
+
+<!-- Header -->
 <div class="chat-header">
-
-<img src="assets/funny.jpg" class="guru-foto">
-
-<div>
-<h3>Guru BK</h3>
-<p>Online</p>
+<h4>Bu Siti Rahma</h4>
+<p>Guru BK</p>
 </div>
 
-</div>
-
-
-<!-- Isi Chat -->
-
+<!-- Chat -->
 <div class="chat-box">
 
 <div class="chat guru">
@@ -36,27 +34,22 @@ Halo, ada yang ingin kamu ceritakan?
 </div>
 
 <div class="chat siswa">
-Iya bu, saya sedang punya masalah dengan teman di kelas.
+Iya bu, saya ingin curhat.
 </div>
 
 <div class="chat guru">
-Coba ceritakan pelan-pelan ya.
-</div>
-
-<div class="chat siswa">
-Teman saya sering mengejek saya di kelas.
+Silakan, saya siap mendengarkan.
 </div>
 
 </div>
 
-
-<!-- Input Chat -->
-
+<!-- Input -->
 <div class="chat-input">
 
 <input type="text" placeholder="Ketik pesan...">
-
 <button>Kirim</button>
+
+</div>
 
 </div>
 

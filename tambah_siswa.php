@@ -22,6 +22,7 @@
 <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
 <li><a href="riwayat_pengaduan.php">Riwayat Pengaduan</a></li>
 <li class="active"><a href="siswa.php">Data Siswa</a></li>
+<li><a href="pesan_masuk.php">Pesan Masuk</a></li>
 <li><a href="pengaturan.php">Pengaturan</a></li>
 <li><a href="logout.php">Logout</a></li>
 </ul>
