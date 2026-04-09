@@ -1,6 +1,6 @@
 body{
     font-family:Arial;
-    background:#f4f6f9;
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
     margin:0;
     padding:0;
 }
@@ -37,64 +37,45 @@ body{
     margin-bottom:10px;
     }
 
-    /* Container pojok kanan */
-.notif-container{
+   /* Kotak inbox pojok kanan */
+.notif-box{
     position:fixed;
     top:20px;
     right:20px;
-    z-index:999;
-}
 
-/* Icon lonceng */
-.notif-icon{
-    background:#1abc9c;
-    color:white;
+    background:white;
     padding:12px;
+
     border-radius:50%;
-    font-size:18px;
-    position:relative;
+    text-decoration:none;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+    transition:0.3s;
 }
 
-/* Badge angka */
+/* Hover */
+.notif-box:hover{
+    transform:scale(1.1);
+}
+
+/* Icon email */
+.notif-icon{
+    position:relative;
+    font-size:22px;
+    color:#1abc9c;
+}
+
+/* Badge jumlah */
 .notif-badge{
     position:absolute;
     top:-5px;
     right:-5px;
+
     background:red;
     color:white;
+
     font-size:12px;
     padding:3px 6px;
     border-radius:50%;
-}
-
-/* Kotak inbox */
-.notif-box{
-    margin-top:10px;
-    width:260px;
-    background:white;
-    border-radius:10px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-    padding:10px;
-}
-
-/* Judul */
-.notif-box h4{
-    margin-bottom:10px;
-    color:#2c3e50;
-}
-
-/* Item notif */
-.notif-item{
-    padding:10px;
-    border-bottom:1px solid #eee;
-    font-size:14px;
-}
-
-.notif-item:last-child{
-    border-bottom:none;
-}
-
-/* Efek hover */
-.notif-item:hover{
-    background:#f4f6f9;
 }

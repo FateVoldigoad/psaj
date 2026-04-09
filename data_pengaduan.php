@@ -16,7 +16,7 @@
         <ul>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li class="active">Data Pengaduan</li>
-            <li><a href="riwayat_pengaduan.php">Riwayat Pengaduan</a></li>
+            <li><a href="riwayat_pengaduan.php">Riwayat</a></li>
             <li><a href="data_siswa.php">Data Siswa</a></li>
             <li><a href="pesan_masuk.php">Pesan Masuk</a></li>
             <li><a href="pengaturan.php">Pengaturan</a></li>

@@ -19,9 +19,9 @@
 
 <ul>
 <li><a href="dashboard.php">Dashboard</a></li>
-<li><a href="siswa.php">Data Siswa</a></li>
 <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
 <li><a href="riwayat_pengaduan.php">Riwayat</a></li>
+<li><a href="data_siswa.php">Data Siswa</a></li>
 <li class="active"><a href="pesan_masuk.php">Pesan Masuk</a></li>
 <li><a href="pengaturan.php">Pengaturan</a></li>
 <li><a href="logout.php">Logout</a></li>

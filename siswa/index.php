@@ -11,7 +11,7 @@
 
     <form action="dashboard.php">
         <div class="input-group">
-            <label>Username</label>
+            <label>NISN</label>
             <input type="text" required>
         </div>
 

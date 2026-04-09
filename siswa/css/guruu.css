@@ -2,11 +2,8 @@ body{
     font-family:Arial, Helvetica, sans-serif;
     margin:0;
     padding:0;
-    background-image:url('../assets/iki.jpg');
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
     height:100vh;
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
     }
     
     .container{

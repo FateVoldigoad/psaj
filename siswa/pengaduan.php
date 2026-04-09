@@ -23,9 +23,6 @@
 <label>Kelas</label>
 <input type="text" placeholder="Contoh: XII RPL">
 
-<label>Email</label>
-<input type="text" placeholder="Masukkan email aktif">
-
 <label>Judul Pengaduan</label>
 <input type="text" placeholder="Judul masalah">
 

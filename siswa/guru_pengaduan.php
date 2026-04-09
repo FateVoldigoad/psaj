@@ -3,7 +3,7 @@
 <head>
 <title>Pilih Guru BK</title>
 
-<link rel="stylesheet" href="css/guru.css">
+<link rel="stylesheet" href="css/guruu.css">
 
 </head>
 <body>

@@ -15,7 +15,7 @@
 <ul>
 <li><a href="dashboard.php">Dashboard</a></li>
 <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
-<li><a href="riwayat_pengaduan.php">Riwayat Pengaduan</a></li>
+<li><a href="riwayat_pengaduan.php">Riwayat</a></li>
 <li class="active">Data Siswa</a></li>
 <li><a href="pesan_masuk.php">Pesan Masuk</a></li>
 <li><a href="pengaturan.php">Pengaturan</a></li>
@@ -62,7 +62,9 @@ Guru BK
 <td>Andi Saputra</td>
 <td>1234567890</td>
 <td>
+<a href="edit_siswa.php">
 <button class="btn-edit">Edit</button>
+</a>
 <button class="btn-hapus">Hapus</button>
 </td>
 </tr>
@@ -72,7 +74,9 @@ Guru BK
 <td>Siti Aisyah</td>
 <td>9876543210</td>
 <td>
+<a href="edit_siswa.php">
 <button class="btn-edit">Edit</button>
+</a>
 <button class="btn-hapus">Hapus</button>
 </td>
 </tr>
@@ -82,7 +86,9 @@ Guru BK
 <td>Budi Santoso</td>
 <td>1122334455</td>
 <td>
+<a href="edit_siswa.php">
 <button class="btn-edit">Edit</button>
+</a>
 <button class="btn-hapus">Hapus</button>
 </td>
 </tr>
