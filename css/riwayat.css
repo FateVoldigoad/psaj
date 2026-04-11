@@ -2,11 +2,12 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body{
-background:#f4f6f9;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
 }
 
 .container{
@@ -18,9 +19,10 @@ display:flex;
 .sidebar{
 width:230px;
 height:100vh;
-background:#2c3e50;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 color:white;
 padding:20px;
+box-shadow: 2px 0 15px rgba(102, 126, 234, 0.3);
 }
 
 .sidebar h2{
@@ -49,11 +51,15 @@ color: white;
 }
 
 .sidebar ul li:hover{
-background:#34495e;
+background:rgba(255, 255, 255, 0.15);
+transform: translateX(5px);
+transition: all 0.3s ease;
 }
 
 .sidebar .active{
-background:#1abc9c;
+background:rgba(255, 255, 255, 0.25);
+border-left: 4px solid white;
+padding-left: 8px;
 }
 
 /* Main */
@@ -71,15 +77,16 @@ justify-content:space-between;
 align-items:center;
 background:white;
 padding:15px 20px;
-border-radius:8px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
+border-radius:15px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .user{
-background:#1abc9c;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 padding:8px 15px;
 border-radius:20px;
 color:white;
+font-weight: 600;
 }
 
 /* Filter */
@@ -98,16 +105,19 @@ border-radius:5px;
 }
 
 .btn-filter{
-background:#1abc9c;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 border:none;
 padding:8px 15px;
 color:white;
-border-radius:5px;
+border-radius:8px;
 cursor:pointer;
+font-weight: 600;
+transition: all 0.3s ease;
 }
 
 .btn-filter:hover{
-background:#16a085;
+box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+transform: translateY(-2px);
 }
 
 /* Table */
@@ -116,8 +126,8 @@ background:#16a085;
 margin-top:20px;
 background:white;
 padding:20px;
-border-radius:10px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
+border-radius:15px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 table{
@@ -132,8 +142,9 @@ border-bottom:1px solid #ddd;
 }
 
 table th{
-background:#1abc9c;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 color:white;
+font-weight: 600;
 }
 
 /* Status */

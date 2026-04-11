@@ -1,15 +1,16 @@
 .form-container{
 background:white;
 padding:25px;
-border-radius:10px;
+border-radius:15px;
 margin-top:30px;
 width:400px;
-box-shadow:0 3px 10px rgba(0,0,0,0.1);
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .form-container h2{
 margin-bottom:15px;
-color:#2c3e50;
+color:#667eea;
+font-weight: 700;
 }
 
 form{
@@ -25,20 +26,25 @@ font-weight:bold;
 form input{
 padding:10px;
 margin-top:5px;
-border:1px solid #ccc;
-border-radius:5px;
+border:2px solid #e0e0e0;
+border-radius:8px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+transition: all 0.3s ease;
 }
 
 .btn-simpan{
 margin-top:20px;
-background:#3498db;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 color:white;
 border:none;
 padding:10px;
-border-radius:5px;
+border-radius:8px;
 cursor:pointer;
+font-weight: 600;
+transition: all 0.3s ease;
 }
 
 .btn-simpan:hover{
-background:#2980b9;
+box-shadow: 0 8px 20px rgba(102, 126, 234, 0.35);
+transform: translateY(-2px);
 }

@@ -1,7 +1,8 @@
 body{
 margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#74ebd5,#ACB6E5);
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+min-height: 100vh;
 }
 
 /* Container */
@@ -10,8 +11,8 @@ width:400px;
 margin:80px auto;
 background:white;
 padding:20px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
+border-radius:15px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 /* Judul */
@@ -36,17 +37,19 @@ padding:15px;
 margin-bottom:10px;
 
 background:#f4f6f9;
-border-radius:10px;
+border-radius:12px;
+border-left: 4px solid #667eea;
 
 text-decoration:none;
 color:black;
 
-transition:0.3s;
+transition: all 0.3s ease;
 }
 
 .notif-item:hover{
 background:#dff9fb;
-transform:scale(1.02);
+transform:translateX(5px);
+box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
 }
 
 /* Icon */
