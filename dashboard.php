@@ -10,7 +10,7 @@
 <div class="container">
 
     <div class="sidebar">
-        <h2>BK Panel</h2>
+        <h2>Layanan Pengaduan</h2>
         <ul>
             <li class="active">Dashboard</li>
             <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
@@ -24,16 +24,7 @@
 
     <div class="main">
 
-       <div class="navbar">
-
-    <div class="nav-left">
-        <img src="assets/logo.png" class="logo">
-        <h3>Layanan Pengaduan</h3>
-    </div>
-    <div class="nav-right">
     <div class="user">Guru BK</div>
-</div>
-        </div>
 
         <!-- Statistik -->
         <div class="cards">

@@ -11,7 +11,7 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-<h2>Guru BK</h2>
+<h2>Layanan Pengaduan</h2>
 <ul>
 <li><a href="dashboard.php">Dashboard</a></li>
 <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
@@ -26,16 +26,8 @@
 <!-- Main -->
 <div class="main">
 
-<!-- Navbar -->
-<div class="navbar">
-<div class="nav-left">
-<img src="assets/logo.png" class="logo">
-<h3>Data Siswa</h3>
-</div>
-
 <div class="user">
 Guru BK
-</div>
 </div>
 
 <!-- Tombol Tambah -->

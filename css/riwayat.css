@@ -19,15 +19,16 @@ display:flex;
 .sidebar{
 width:230px;
 height:100vh;
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-color:white;
+background: white;
+color:#333;
 padding:20px;
-box-shadow: 2px 0 15px rgba(102, 126, 234, 0.3);
+box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar h2{
 text-align:center;
 margin-bottom:30px;
+color:#333;
 }
 
 .sidebar ul{
@@ -47,18 +48,19 @@ margin:10px 0;
 border-radius:5px;
 cursor:pointer;
 text-decoration: none;
-color: white;
+color: #333;
 }
 
 .sidebar ul li:hover{
-background:rgba(255, 255, 255, 0.15);
+background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 transform: translateX(5px);
 transition: all 0.3s ease;
 }
 
 .sidebar .active{
-background:rgba(255, 255, 255, 0.25);
-border-left: 4px solid white;
+background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+color: rgb(0, 0, 0);
+border-left: 4px solid #667eea;
 padding-left: 8px;
 }
 
@@ -82,11 +84,14 @@ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .user{
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+display: inline-block;
+background: white;
 padding:8px 15px;
 border-radius:20px;
-color:white;
+color:#333;
 font-weight: 600;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
 }
 
 /* Filter */
@@ -142,9 +147,10 @@ border-bottom:1px solid #ddd;
 }
 
 table th{
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-color:white;
+background: white;
+color:#333;
 font-weight: 600;
+border: 1px solid #ddd;
 }
 
 /* Status */

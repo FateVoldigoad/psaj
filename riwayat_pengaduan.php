@@ -12,7 +12,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>BK Panel</h2>
+        <h2>Layanan Pengaduan</h2>
         <ul>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
@@ -27,11 +27,7 @@
     <!-- Main -->
     <div class="main">
 
-        <!-- Navbar -->
-        <div class="navbar">
-            <h3>Riwayat Pengaduan Siswa</h3>
-            <div class="user">Guru BK</div>
-        </div>
+        <div class="user">Guru BK</div>
 
         <!-- Filter -->
         <div class="filter">
@@ -42,9 +38,7 @@
                 <option>Diproses</option>
             </select>
 
-            <input type="date">
-
-            <button class="btn-filter">Filter</button>
+           
 
         </div>
 

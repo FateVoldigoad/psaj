@@ -12,7 +12,7 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>BK Panel</h2>
+        <h2>Layanan Pengaduan</h2>
         <ul>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li class="active">Data Pengaduan</li>
@@ -27,11 +27,7 @@
     <!-- Main -->
     <div class="main">
 
-        <!-- Navbar -->
-        <div class="navbar">
-            <h3>Data Pengaduan Siswa</h3>
-            <div class="user">Guru BK</div>
-        </div>
+        <div class="user">Guru BK</div>
 
         <!-- Header Table -->
         <div class="table-header">
