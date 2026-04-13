@@ -31,6 +31,21 @@ margin-bottom:30px;
 color:#333;
 }
 
+.sidebar .logo-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.sidebar .logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
 .sidebar ul{
 list-style:none;
 }

@@ -10,12 +10,14 @@
 <div class="container">
 
     <div class="sidebar">
+        <div class="logo-section">
+            <img src="assets/Logo.png" alt="Logo" class="logo">
+        </div>
         <h2>Layanan Pengaduan</h2>
         <ul>
             <li class="active">Dashboard</li>
             <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
             <li><a href="riwayat_pengaduan.php">Riwayat</a></li>
-            <li><a href="data_siswa.php">Data Siswa</a></li>
             <li><a href="pesan_masuk.php">Pesan Masuk</a></li>
             <li><a href="pengaturan.php">Pengaturan</a></li>
             <li><a href="index.php">Logout</a></li>
@@ -23,8 +25,6 @@
     </div>
 
     <div class="main">
-
-    <div class="user">Guru BK</div>
 
         <!-- Statistik -->
         <div class="cards">

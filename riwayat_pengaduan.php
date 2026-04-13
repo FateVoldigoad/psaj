@@ -12,12 +12,14 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
+        <div class="logo-section">
+            <img src="assets/Logo.png" alt="Logo" class="logo">
+        </div>
         <h2>Layanan Pengaduan</h2>
         <ul>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
             <li class="active">Riwayat</li>
-            <li><a href="data_siswa.php">Data Siswa</a></li>
             <li><a href="pesan_masuk.php">Pesan Masuk</a></li>
             <li><a href="pengaturan.php">Pengaturan</a></li>
             <li><a href="index.php">Logout</a></li>
@@ -26,8 +28,6 @@
 
     <!-- Main -->
     <div class="main">
-
-        <div class="user">Guru BK</div>
 
         <!-- Filter -->
         <div class="filter">
