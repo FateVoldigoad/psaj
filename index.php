@@ -1,3 +1,30 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+// Cek parameter logout untuk bypass
+$logout_all = $_GET['logout'] ?? '';
+if ($logout_all == 'all') {
+    session_destroy();
+    session_start();
+}
+
+// Jika belum ada logout request, arahkan ke dashboard jika sudah login
+if (empty($logout_all)) {
+    if (isset($_SESSION['id_siswa'])) {
+        header("Location: siswa/dashboard.php");
+        exit;
+    }
+    if (isset($_SESSION['id_bk'])) {
+        header("Location: dashboard.php");
+        exit;
+    }
+}
+
+// Ambil error message dari session jika ada
+$error = $_SESSION['error'] ?? '';
+unset($_SESSION['error']);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,6 +232,22 @@
         <p>SMK Negeri 10 Surabaya</p>
     </div>
 
+    <!-- SESSION NOTICE -->
+    <?php 
+    if (!empty($logout_all) && (isset($_SESSION['id_siswa']) || isset($_SESSION['id_bk']))): 
+    ?>
+    <div style="background-color: #e3f2fd; color: #1565c0; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #1565c0; font-size: 14px;">
+        <i class="fas fa-info-circle"></i> <strong>Anda berhasil logout.</strong> Silakan login kembali dengan akun yang berbeda.
+    </div>
+    <?php endif; ?>
+
+    <!-- PESAN ERROR -->
+    <?php if (!empty($error)): ?>
+    <div style="background-color: #fee; color: #c33; padding: 12px 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #c33; font-size: 14px;">
+        <i class="fas fa-exclamation-circle"></i> <?php echo htmlspecialchars($error); ?>
+    </div>
+    <?php endif; ?>
+
     <!-- PILIHAN ROLE -->
     <div class="role-selection">
         <button type="button" class="role-btn active" onclick="showLoginForm('guru')">
@@ -223,7 +266,7 @@
             <i class="fas fa-lock"></i>
             Login Guru
         </h2>
-        <form action="dashboard.php" method="POST">
+        <form action="login_proses.php" method="POST">
             <input type="hidden" name="role" value="guru">
             <div class="input-group">
                 <label for="guru-username">Username</label>
@@ -248,7 +291,7 @@
             <i class="fas fa-lock"></i>
             Login Siswa
         </h2>
-        <form action="siswa/dashboard.php" method="POST">
+        <form action="login_proses.php" method="POST">
             <input type="hidden" name="role" value="siswa">
             <div class="input-group">
                 <label for="siswa-username">Username</label>
@@ -265,6 +308,14 @@
                 Login
             </button>
         </form>
+    </div>
+
+    <!-- FOOTER HELP -->
+    <div style="text-align: center; margin-top: 25px; padding-top: 15px; border-top: 1px solid #eee;">
+        <p style="color: #999; font-size: 13px; margin-bottom: 10px;">Tidak bisa masuk? Terjebak di halaman lain?</p>
+        <a href="?logout=all" style="color: #667eea; text-decoration: none; font-weight: 600; font-size: 13px;">
+            <i class="fas fa-redo"></i> Klik di sini untuk logout semua dan login ulang
+        </a>
     </div>
 </div>
 

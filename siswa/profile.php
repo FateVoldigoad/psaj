@@ -1,3 +1,26 @@
+<?php
+session_start();
+include '../koneksi.php';
+
+// Pastikan user sudah login sebagai siswa
+if (!isset($_SESSION['id_siswa'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+// Get siswa data dari database
+$id_siswa = $_SESSION['id_siswa'];
+$query = "SELECT s.*, k.nama_kelas FROM siswa s 
+          LEFT JOIN kelas k ON s.id_kelas = k.id_kelas 
+          WHERE s.id_siswa = $id_siswa";
+$result = mysqli_query($conn, $query);
+$siswa = mysqli_fetch_assoc($result);
+
+if (!$siswa) {
+    header("Location: ../index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -49,9 +72,10 @@
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="profile-info">
-                    <h1 class="profile-name">Muhammad Rizki Pratama</h1>
-                    <p class="profile-nisn">NISN: 0123456789</p>
-                    <p class="profile-class">Kelas: XII RPL 1</p>
+                    <h1 class="profile-name"><?php echo htmlspecialchars($siswa['nama']); ?></h1>
+                    <p class="profile-nisn">NISN: <?php echo htmlspecialchars($siswa['nisn']); ?></p>
+                    <p class="profile-class">Kelas: <?php echo htmlspecialchars($siswa['nama_kelas'] ?? '-'); ?></p>
+                    <p class="profile-email"><i class="fas fa-envelope"></i> <?php echo htmlspecialchars($siswa['email']); ?></p>
                 </div>
             </div>
 
@@ -61,7 +85,7 @@
                     <i class="fas fa-edit"></i>
                     Edit Profil
                 </a>
-                <a href="../index.php" class="logout-btn">
+                <a href="../logout.php" class="logout-btn" onclick="return confirm('Yakin ingin logout?');">
                     <i class="fas fa-sign-out-alt"></i>
                     Logout
                 </a>

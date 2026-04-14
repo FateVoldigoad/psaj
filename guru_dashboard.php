@@ -34,11 +34,12 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
 }
 ?>
 <!DOCTYPE html>
-<htm lang="id">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Pengaduan Siswa</title>
+    <title>Dashboard Guru - Layanan Pengaduan</title>
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .status-badge {
             display: inline-block;
@@ -61,19 +62,19 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
         }
     </style>
 </head>
-<b>
+<body>
 
 <div class="container">
 
     <div class="sidebar">
         <h2>Layanan Pengaduan</h2>
         <ul>
-            <li class="active"><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="data_pengaduan.php">Data Pengaduan</a></li>
-            <li><a href="riwayat_pengaduan.php">Riwayat</a></li>
-            <li><a href="data_siswa.php">Data Siswa</a></li>
-            <li><a href="pesan_masuk.php">Pesan Masuk</a></li>
-            <li><a href="pengaturan.php">Pengaturan</a></li>
+            <li class="active"><a href="guru_dashboard.php">Dashboard</a></li>
+            <li><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
+            <li><a href="guru_riwayat_pengaduan.php">Riwayat</a></li>
+            <li><a href="guru_data_siswa.php">Data Siswa</a></li>
+            <li><a href="guru_pesan_masuk.php">Pesan Masuk</a></li>
+            <li><a href="guru_pengaturan.php">Pengaturan</a></li>
             <li><a href="logout.php" onclick="return confirm('Yakin ingin logout?');">Logout</a></li>
         </ul>
     </div>

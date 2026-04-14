@@ -1,3 +1,42 @@
+<?php
+session_start();
+include '../koneksi.php';
+
+// Pastikan user sudah login sebagai siswa
+if (!isset($_SESSION['id_siswa'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
+$id_siswa = $_SESSION['id_siswa'];
+
+// Get siswa data
+$query_siswa = "SELECT * FROM siswa WHERE id_siswa='$id_siswa'";
+$result_siswa = mysqli_query($conn, $query_siswa);
+$siswa = mysqli_fetch_assoc($result_siswa);
+
+// Get statistics
+$query_pengaduan_total = "SELECT COUNT(*) as total FROM pengaduan WHERE id_siswa='$id_siswa'";
+$result_total = mysqli_query($conn, $query_pengaduan_total);
+$total_pengaduan = mysqli_fetch_assoc($result_total)['total'];
+
+$query_pengaduan_baru = "SELECT COUNT(*) as baru FROM pengaduan WHERE id_siswa='$id_siswa' AND status='baru'";
+$result_baru = mysqli_query($conn, $query_pengaduan_baru);
+$pengaduan_baru = mysqli_fetch_assoc($result_baru)['baru'];
+
+$query_pengaduan_diproses = "SELECT COUNT(*) as diproses FROM pengaduan WHERE id_siswa='$id_siswa' AND status='diproses'";
+$result_diproses = mysqli_query($conn, $query_pengaduan_diproses);
+$pengaduan_diproses = mysqli_fetch_assoc($result_diproses)['diproses'];
+
+$query_pengaduan_selesai = "SELECT COUNT(*) as selesai FROM pengaduan WHERE id_siswa='$id_siswa' AND status='selesai'";
+$result_selesai = mysqli_query($conn, $query_pengaduan_selesai);
+$pengaduan_selesai = mysqli_fetch_assoc($result_selesai)['selesai'];
+
+$query_notif_belum = "SELECT COUNT(*) as belum FROM notifikasi WHERE id_siswa='$id_siswa' AND status='belum'";
+$result_notif = mysqli_query($conn, $query_notif_belum);
+$notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,19 +45,28 @@
     <title>Dashboard Siswa</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+        .stat-number { font-size: 32px; font-weight: bold; color: #007bff; }
+        .stat-label { font-size: 14px; color: #666; margin-top: 5px; }
+        .recent-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px; }
+    </style>
 </head>
 <body>
     <!-- Navigation Header -->
     <header class="header">
         <div class="header-content">
             <div class="logo-section">
-                <img src="assets/Logo.png" alt="Logo" class="logo">
-                <h1 class="brand-name">SMKN 10 SURABAYA</h1>
+                <h1 class="brand-name">Dashboard Siswa</h1>
+                <p style="font-size: 14px; color: #666;">Selamat datang, <?php echo htmlspecialchars($siswa['nama']); ?> 👋</p>
             </div>
             <div class="header-actions">
                 <a href="notif.php" class="notif-btn">
                     <i class="fas fa-bell"></i>
-                    <span class="notif-badge">2</span>
+                    <?php if ($notif_belum > 0): ?>
+                        <span class="notif-badge"><?php echo $notif_belum; ?></span>
+                    <?php endif; ?>
                 </a>
                 <a href="profile.php" class="profile-btn">
                     <i class="fas fa-user-circle"></i>
@@ -38,11 +86,30 @@
         <!-- Welcome Section -->
         <section class="welcome-section">
             <div class="welcome-content">
-                <h2 class="welcome-title">Selamat Datang! 👋</h2>
-                <p class="welcome-subtitle">Pusat Layanan Pengaduan & Konsultasi Siswa</p>
-                <p class="welcome-desc">Silakan pilih layanan yang ingin digunakan untuk melaporkan atau berkonsultasi dengan Guru BK</p>
+                <h2 class="welcome-title">Dashboard Siswa 📊</h2>
+                <p class="welcome-desc">Kelola pengaduan, konsultasi, dan komunikasi dengan Guru BK</p>
             </div>
         </section>
+
+        <!-- Statistics Section -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number"><?php echo $total_pengaduan; ?></div>
+                <div class="stat-label">Total Pengaduan</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><?php echo $pengaduan_baru; ?></div>
+                <div class="stat-label">Pengaduan Baru</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><?php echo $pengaduan_diproses; ?></div>
+                <div class="stat-label">Dalam Proses</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number"><?php echo $pengaduan_selesai; ?></div>
+                <div class="stat-label">Selesai</div>
+            </div>
+        </div>
 
         <!-- Services Grid -->
         <section class="services-grid">

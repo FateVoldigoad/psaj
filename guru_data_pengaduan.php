@@ -27,8 +27,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Pengaduan Siswa</title>
+    <title>Data Pengaduan - Guru</title>
     <link rel="stylesheet" href="css/data_pengaduan.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .status-badge {
             display: inline-block;
@@ -132,13 +133,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     <div class="sidebar">
         <h2>Layanan Pengaduan</h2>
         <ul>
-            <li><a href="dashboard.php">Dashboard</a></li>
-            <li class="active"><a href="data_pengaduan.php">Data Pengaduan</a></li>
-            <li><a href="riwayat_pengaduan.php">Riwayat</a></li>
-            <li><a href="data_siswa.php">Data Siswa</a></li>
-            <li><a href="pesan_masuk.php">Pesan Masuk</a></li>
-            <li><a href="pengaturan.php">Pengaturan</a></li>
-            <li><a href="index.php">Logout</a></li>
+            <li><a href="guru_dashboard.php">Dashboard</a></li>
+            <li class="active"><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
+            <li><a href="guru_riwayat_pengaduan.php">Riwayat</a></li>
+            <li><a href="guru_data_siswa.php">Data Siswa</a></li>
+            <li><a href="guru_pesan_masuk.php">Pesan Masuk</a></li>
+            <li><a href="guru_pengaturan.php">Pengaturan</a></li>
+            <li><a href="logout.php" onclick="return confirm('Yakin ingin logout?');">Logout</a></li>
         </ul>
     </div>
 
@@ -200,7 +201,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <td><?php echo htmlspecialchars($pengaduan['guru_nama'] ?? 'Belum ditugaskan'); ?></td>
                             <td><?php echo date('d/m/Y H:i', strtotime($pengaduan['tanggal'])); ?></td>
                             <td>
-                                <a href="tanggapi.php?id=<?php echo $pengaduan['id_pengaduan']; ?>" class="action-btn btn-tanggapi">
+                                <a href="guru_tanggapi.php?id=<?php echo $pengaduan['id_pengaduan']; ?>" class="action-btn btn-tanggapi">
                                     Tanggapi
                                 </a>
                             </td>
@@ -243,64 +244,6 @@ function filterTable() {
     }
 }
 </script>
-
-</body>
-</html>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>Andi Saputra</td>
-                        <td>XII RPL 1</td>
-                        <td>Bullying</td>
-                        <td>Dibully oleh teman kelas</td>
-                        <td>10 Feb 2026</td>
-                        <td class="proses">Diproses</td>
-                        <td>
-                            <a href="tanggapi.php" class="btn-tanggapi">Tanggapi</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Siti Aisyah</td>
-                        <td>XII AKL 2</td>
-                        <td>Masalah Belajar</td>
-                        <td>Kesulitan memahami pelajaran</td>
-                        <td>9 Feb 2026</td>
-                        <td class="selesai">Selesai</td>
-                        <td>
-                            <a href="tanggapi.php" class="btn-tanggapi">Tanggapi</a>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>3</td>
-                        <td>Rizky Pratama</td>
-                        <td>XI RPL 1</td>
-                        <td>Konflik Teman</td>
-                        <td>Perselisihan dengan teman</td>
-                        <td>8 Feb 2026</td>
-                        <td class="baru">Baru</td>
-                        <td>
-                            <a href="tanggapi.php" class="btn-tanggapi">Tanggapi</a>
-                        </td>
-                    </tr>
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
-
-</div>
 
 </body>
 </html>

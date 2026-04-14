@@ -281,9 +281,7 @@ body {
         align-self: flex-end;
     }
 }
-transform:translateX(5px);
-box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
-}
+
 
 /* Icon */
 .notif-icon{
