@@ -22,118 +22,149 @@ $siswa = mysqli_fetch_assoc($result_siswa);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pengaduan - PSAJ</title>
-    <link rel="stylesheet" href="assets/css/pengaduan.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f5f5f5; }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        .form-container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #333; }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-        }
-        .form-group textarea { resize: vertical; min-height: 150px; }
-        .form-group input:disabled { background: #f8f9fa; cursor: not-allowed; }
-        .btn-group { display: flex; gap: 10px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; text-decoration: none; }
-        .btn-submit { background: #28a745; color: white; }
-        .btn-submit:hover { background: #218838; }
-        .btn-cancel { background: #6c757d; color: white; display: inline-block; }
-        .btn-cancel:hover { background: #5a6268; }
-        .alert { padding: 15px; margin-bottom: 20px; border-radius: 4px; }
-        .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .breadcrumb { margin-bottom: 20px; }
-        .breadcrumb a { color: #007bff; text-decoration: none; }
-        .breadcrumb a:hover { text-decoration: underline; }
-        h1 { color: #333; margin-bottom: 30px; }
-        .info-box { background: #f8f9fa; padding: 15px; border-radius: 4px; margin-bottom: 20px; border-left: 4px solid #007bff; }
-        .required { color: red; }
-    </style>
+    <link rel="stylesheet" href="css/pengaduan.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<div class="container">
+<!-- Floating Stars Background -->
+<div class="floating-stars" id="floatingStars"></div>
+
+<div class="complaint-container">
     
-    <div class="breadcrumb">
-        <a href="dashboard.php">Dashboard</a> / <span>Form Pengaduan</span>
+    <!-- Header Section -->
+    <div class="complaint-header">
+        <h1>📝 Pengaduan & Laporan</h1>
+        <p>Sampaikan pengaduan atau laporan Anda kepada Guru Bimbingan Konseling dengan aman dan terjaga kerahasiaannya</p>
     </div>
 
-    <h1>📝 Buat Pengaduan Baru</h1>
+    <!-- Main Wrapper -->
+    <div class="complaint-wrapper">
 
-    <?php if (isset($_SESSION['pesan'])): ?>
-        <div class="alert alert-<?php echo $_SESSION['tipe']; ?>">
-            <?php echo $_SESSION['pesan']; ?>
+        <!-- Form Section -->
+        <div class="complaint-form-section">
+            <div class="complaint-form-card">
+                <h2>Form Pengaduan Baru</h2>
+
+                <!-- Breadcrumb -->
+                <div class="breadcrumb">
+                    <a href="dashboard.php"><i class="fas fa-home"></i> Dashboard</a>
+                    <span>/</span>
+                    <span>Form Pengaduan</span>
+                </div>
+
+                <!-- Alert Messages -->
+                <?php if (isset($_SESSION['pesan'])): ?>
+                    <div class="alert alert-<?php echo $_SESSION['tipe']; ?>">
+                        <i class="fas fa-<?php echo $_SESSION['tipe'] === 'success' ? 'check-circle' : 'exclamation-circle'; ?>"></i>
+                        <?php echo $_SESSION['pesan']; ?>
+                    </div>
+                    <?php unset($_SESSION['pesan']); unset($_SESSION['tipe']); ?>
+                <?php endif; ?>
+
+                <!-- Info Box -->
+                <div class="info-box">
+                    <strong><i class="fas fa-info-circle"></i> Informasi Penting:</strong>
+                    Pengaduan Anda akan ditinjau oleh Guru BK dalam waktu maksimal 3 hari kerja. Semua informasi yang Anda berikan akan dirahasiakan.
+                </div>
+
+                <!-- Form -->
+                <form method="POST" action="proses_pengaduan.php" enctype="multipart/form-data">
+                    <input type="hidden" name="aksi" value="tambah">
+                    
+                    <!-- User Info Section -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" id="nama" name="nama" value="<?php echo htmlspecialchars($siswa['nama']); ?>" readonly disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="nisn">NISN</label>
+                            <input type="text" id="nisn" name="nisn" value="<?php echo htmlspecialchars($siswa['nisn']); ?>" readonly disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="kelas">Kelas</label>
+                        <input type="text" id="kelas" name="kelas" value="<?php 
+                            $query_kelas = "SELECT nama_kelas FROM kelas WHERE id_kelas='{$siswa['id_kelas']}'";
+                            $result_kelas = mysqli_query($conn, $query_kelas);
+                            if (mysqli_num_rows($result_kelas) > 0) {
+                                $kelas = mysqli_fetch_assoc($result_kelas);
+                                echo htmlspecialchars($kelas['nama_kelas']);
+                            }
+                        ?>" readonly disabled>
+                    </div>
+
+                    <!-- Complaint Type -->
+                    <div class="form-group">
+                        <label for="jenis">Jenis Pengaduan <span class="required">*</span></label>
+                        <select id="jenis" name="jenis" required>
+                            <option value="">-- Pilih Jenis Pengaduan --</option>
+                            <option value="pengaduan">📢 Pengaduan</option>
+                            <option value="laporan">📋 Laporan</option>
+                        </select>
+                    </div>
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="judul">Judul Pengaduan <span class="required">*</span></label>
+                        <input type="text" id="judul" name="judul" placeholder="Masukkan judul pengaduan Anda..." required maxlength="150">
+                    </div>
+
+                    <!-- Content -->
+                    <div class="form-group">
+                        <label for="isi">Isi Pengaduan <span class="required">*</span></label>
+                        <textarea id="isi" name="isi" placeholder="Jelaskan secara detail pengaduan atau laporan Anda. Tuliskan fakta-fakta yang akurat dan objektif..." required maxlength="5000"></textarea>
+                        <span class="char-count"><span id="charCount">0</span>/5000</span>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fas fa-paper-plane"></i> Kirim Pengaduan
+                        </button>
+                        <a href="dashboard.php" class="btn btn-cancel">
+                            <i class="fas fa-times"></i> Batal
+                        </a>
+                    </div>
+
+                </form>
+
+            </div>
         </div>
-        <?php unset($_SESSION['pesan']); unset($_SESSION['tipe']); ?>
-    <?php endif; ?>
 
-    <div class="info-box">
-        <strong>ℹ️ Informasi:</strong> Pengaduan Anda akan ditinjau oleh Guru BK. Anda dapat membatalkan pengaduan yang masih dalam status "Baru". Informasi yang Anda berikan akan dirahasiakan.
-    </div>
-
-    <div class="form-container">
-        <form method="POST" action="proses_pengaduan.php" enctype="multipart/form-data">
-            <input type="hidden" name="aksi" value="tambah">
-            
-            <div class="form-group">
-                <label for="nama">Nama Lengkap</label>
-                <input type="text" id="nama" name="nama" value="<?php echo htmlspecialchars($siswa['nama']); ?>" readonly disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="nisn">NISN</label>
-                <input type="text" id="nisn" name="nisn" value="<?php echo htmlspecialchars($siswa['nisn']); ?>" readonly disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="kelas">Kelas</label>
-                <input type="text" id="kelas" name="kelas" value="<?php 
-                    $query_kelas = "SELECT nama_kelas FROM kelas WHERE id_kelas='{$siswa['id_kelas']}'";
-                    $result_kelas = mysqli_query($conn, $query_kelas);
-                    if (mysqli_num_rows($result_kelas) > 0) {
-                        $kelas = mysqli_fetch_assoc($result_kelas);
-                        echo htmlspecialchars($kelas['nama_kelas']);
-                    }
-                ?>" readonly disabled>
-            </div>
-
-            <div class="form-group">
-                <label for="jenis">Jenis Pengaduan <span class="required">*</span></label>
-                <select id="jenis" name="jenis" required>
-                    <option value="">-- Pilih Jenis --</option>
-                    <option value="pengaduan">Pengaduan</option>
-                    <option value="laporan">Laporan</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="judul">Judul Pengaduan <span class="required">*</span></label>
-                <input type="text" id="judul" name="judul" placeholder="Masukkan judul pengaduan..." required maxlength="150">
-            </div>
-
-            <div class="form-group">
-                <label for="isi">Isi Pengaduan <span class="required">*</span></label>
-                <textarea id="isi" name="isi" placeholder="Jelaskan secara detail pengaduan atau laporan Anda..." required></textarea>
-            </div>
-
-            <div class="btn-group">
-                <button type="submit" class="btn btn-submit">✓ Kirim Pengaduan</button>
-                <a href="riwayat_pengaduan.php" class="btn btn-cancel">✕ Batal</a>
-            </div>
-
-        </form>
     </div>
 
 </div>
+
+<script>
+    // Floating Stars Animation
+    function createFloatingStars() {
+        const container = document.getElementById('floatingStars');
+        const stars = ['✨', '⭐', '💫', '🌟'];
+        const starCount = 30;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'floating-star';
+            star.textContent = stars[Math.floor(Math.random() * stars.length)];
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 8 + 's';
+            star.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            container.appendChild(star);
+        }
+    }
+
+    // Character Count
+    document.getElementById('isi').addEventListener('input', function() {
+        document.getElementById('charCount').textContent = this.value.length;
+    });
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', createFloatingStars);
+</script>
 
 </body>
 </html>
