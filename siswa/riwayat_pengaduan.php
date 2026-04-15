@@ -136,9 +136,6 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <?php endif; ?>
 
                 <div class="card-footer">
-                    <button class="btn btn-view" onclick="viewDetail(<?php echo $pengaduan['id_pengaduan']; ?>)">
-                        👁️ Lihat Detail
-                    </button>
                     <?php if ($pengaduan['status'] == 'baru'): ?>
                         <button class="btn btn-cancel" onclick="batalkan(<?php echo $pengaduan['id_pengaduan']; ?>)">
                             ✕ Batalkan
@@ -160,11 +157,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 </div>
 
 <script>
-function viewDetail(id) {
-    // Bisa di-expand untuk menampilkan detail lengkap
-    alert('Detail Pengaduan ID: ' + id);
-}
-
 function batalkan(id) {
     if (confirm('Apakah Anda yakin ingin membatalkan pengaduan ini?')) {
         window.location.href = 'proses_pengaduan.php?aksi=batalkan&id=' + id;

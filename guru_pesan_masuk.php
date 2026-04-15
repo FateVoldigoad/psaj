@@ -142,7 +142,7 @@ $total_unread_count = $total_data['total'] ?? 0;
                     <div class="chat-item <?php echo $id_siswa_selected == $conv['id_siswa'] ? 'active' : ''; ?>" 
                          onclick="window.location.href='guru_pesan_masuk.php?siswa=<?php echo $conv['id_siswa']; ?>'">
                         <div class="chat-item-name">
-                            <?php echo htmlspecialchars($conv['nama']); ?>
+                            Siswa Anonim
                             <?php if ($conv['pesan_belum'] > 0): ?>
                             <span class="chat-item-badge"><?php echo $conv['pesan_belum']; ?></span>
                             <?php endif; ?>
@@ -158,7 +158,7 @@ $total_unread_count = $total_data['total'] ?? 0;
             
             <!-- Siswa Info -->
             <div class="siswa-info">
-                <strong><?php echo htmlspecialchars($siswa_selected['nama']); ?></strong> 
+                <strong>Siswa Anonim</strong> 
                 <span style="color: #999;">(<?php echo htmlspecialchars($siswa_selected['nisn']); ?>)</span>
                 <div style="font-size: 12px; color: #999; margin-top: 5px;">
                     Email: <?php echo htmlspecialchars($siswa_selected['email'] ?? '-'); ?> | 
@@ -176,7 +176,7 @@ $total_unread_count = $total_data['total'] ?? 0;
                     <?php foreach ($messages as $msg): ?>
                     <div class="message-item <?php echo $msg['pengirim']; ?>">
                         <div class="message-sender <?php echo $msg['pengirim']; ?>">
-                            <?php echo ($msg['pengirim'] == 'siswa') ? '📝 ' . htmlspecialchars($siswa_selected['nama']) : '🎓 Guru BK'; ?>
+                            <?php echo ($msg['pengirim'] == 'siswa') ? '📝 Siswa Anonim' : '🎓 Guru BK'; ?>
                         </div>
                         <div class="message-content">
                             <?php echo nl2br(htmlspecialchars($msg['pesan'])); ?>
