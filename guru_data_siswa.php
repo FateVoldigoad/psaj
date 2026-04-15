@@ -134,6 +134,8 @@ unset($_SESSION['tipe']);
             <input type="text" id="searchInput" placeholder="Cari siswa..." style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 300px;" onkeyup="filterTable()">
         </div>
 
+        <!-- Table Scroll Container -->
+        <div class="table-scroll">
         <!-- Table -->
         <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
             <thead>
@@ -175,6 +177,7 @@ unset($_SESSION['tipe']);
                 <?php endif; ?>
             </tbody>
         </table>
+        </div>
 
     </div>
 

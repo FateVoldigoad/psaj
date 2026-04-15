@@ -82,7 +82,7 @@ $total_unread_count = $total_data['total'] ?? 0;
         .chat-item-name { font-weight: bold; }
         .chat-item-preview { font-size: 12px; color: #999; margin-top: 5px; }
         .chat-item-badge { display: inline-block; background: #ff9800; color: white; font-size: 11px; padding: 2px 6px; border-radius: 10px; float: right; }
-        .messages-area { background: white; border-radius: 8px; border: 1px solid #ddd; padding: 20px; }
+        .messages-area { background: white; border-radius: 8px; border: 1px solid #ddd; padding: 20px; max-height: 500px; overflow-y: auto; position: relative; }
         .message-item { padding: 15px; margin-bottom: 15px; border-radius: 5px; border-left: 4px solid #ddd; }
         .message-item.siswa { background: #e3f2fd; border-left-color: #2196F3; }
         .message-item.guru { background: #c8e6c9; border-left-color: #4CAF50; }
@@ -142,7 +142,7 @@ $total_unread_count = $total_data['total'] ?? 0;
                     <div class="chat-item <?php echo $id_siswa_selected == $conv['id_siswa'] ? 'active' : ''; ?>" 
                          onclick="window.location.href='guru_pesan_masuk.php?siswa=<?php echo $conv['id_siswa']; ?>'">
                         <div class="chat-item-name">
-                            Siswa Anonim
+                            <?php echo htmlspecialchars($conv['nama']); ?>
                             <?php if ($conv['pesan_belum'] > 0): ?>
                             <span class="chat-item-badge"><?php echo $conv['pesan_belum']; ?></span>
                             <?php endif; ?>
@@ -158,7 +158,7 @@ $total_unread_count = $total_data['total'] ?? 0;
             
             <!-- Siswa Info -->
             <div class="siswa-info">
-                <strong>Siswa Anonim</strong> 
+                <strong><?php echo htmlspecialchars($siswa_selected['nama']); ?></strong> 
                 <span style="color: #999;">(<?php echo htmlspecialchars($siswa_selected['nisn']); ?>)</span>
                 <div style="font-size: 12px; color: #999; margin-top: 5px;">
                     Email: <?php echo htmlspecialchars($siswa_selected['email'] ?? '-'); ?> | 
@@ -167,7 +167,7 @@ $total_unread_count = $total_data['total'] ?? 0;
             </div>
 
             <!-- Messages Area -->
-            <div class="messages-area">
+            <div class="messages-area" id="messagesArea">
                 <?php if (count($messages) === 0): ?>
                 <div style="text-align: center; color: #999; padding: 40px;">
                     Belum ada pesan dengan siswa ini
@@ -176,7 +176,7 @@ $total_unread_count = $total_data['total'] ?? 0;
                     <?php foreach ($messages as $msg): ?>
                     <div class="message-item <?php echo $msg['pengirim']; ?>">
                         <div class="message-sender <?php echo $msg['pengirim']; ?>">
-                            <?php echo ($msg['pengirim'] == 'siswa') ? '📝 Siswa Anonim' : '🎓 Guru BK'; ?>
+                            <?php echo ($msg['pengirim'] == 'siswa') ? '📝 ' . htmlspecialchars($siswa_selected['nama']) : '🎓 Guru BK'; ?>
                         </div>
                         <div class="message-content">
                             <?php echo nl2br(htmlspecialchars($msg['pesan'])); ?>
@@ -213,6 +213,18 @@ $total_unread_count = $total_data['total'] ?? 0;
     </div>
 
 </div>
+
+<script>
+// Auto scroll ke bawah saat halaman load
+window.addEventListener('DOMContentLoaded', function() {
+    const messagesArea = document.getElementById('messagesArea');
+    if (messagesArea) {
+        setTimeout(function() {
+            messagesArea.scrollTop = messagesArea.scrollHeight;
+        }, 100);
+    }
+});
+</script>
 
 </body>
 </html>

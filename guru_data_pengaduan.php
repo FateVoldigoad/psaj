@@ -67,14 +67,14 @@ while ($row = mysqli_fetch_assoc($result)) {
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             margin-bottom: 20px;
             border: 1px solid #ddd;
-            max-height: 700px;
+            height: 600px;
             overflow: hidden;
         }
         
         .table-scroll {
             width: 100%;
             height: 100%;
-            overflow-y: auto;
+            overflow-y: scroll;
             overflow-x: auto;
         }
         
@@ -160,8 +160,9 @@ while ($row = mysqli_fetch_assoc($result)) {
             <input type="text" placeholder="Cari pengaduan..." class="search" id="searchInput" onkeyup="filterTable()">
         </div>
 
+
         <!-- Table Container dengan Scroll -->
-        <div class="table-wrapper">
+        <div class="table-wrapper" id="tableWrapper">
             <div class="table-scroll">
                 <table id="tabelPengaduan">
 

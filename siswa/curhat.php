@@ -11,16 +11,30 @@ if (!isset($_SESSION['id_siswa'])) {
 $id_siswa = $_SESSION['id_siswa'];
 $nama_siswa = $_SESSION['nama_siswa'] ?? 'Siswa';
 
-// Ambil semua pesan curhat siswa ini dari database
+// Ambil curhat siswa terbaru saja dari database
 $query_curhat = "SELECT c.id_chat, c.pesan, c.waktu, c.pengirim, g.nama as guru_nama
                  FROM chat c
                  LEFT JOIN guru_bk g ON c.id_bk = g.id_bk
                  WHERE c.id_siswa = '$id_siswa'
-                 ORDER BY c.waktu DESC";
+                 ORDER BY c.waktu DESC
+                 LIMIT 1";
 $result_curhat = mysqli_query($conn, $query_curhat);
+$curhat_terbaru = mysqli_fetch_assoc($result_curhat);
+
+// Ambil semua balasan untuk curhat terbaru
 $curhat_list = [];
-while ($row = mysqli_fetch_assoc($result_curhat)) {
-    $curhat_list[] = $row;
+if ($curhat_terbaru && $curhat_terbaru['pengirim'] == 'siswa') {
+    // Ambil curhat terbaru dan semua balasnnya
+    $query_thread = "SELECT c.id_chat, c.pesan, c.waktu, c.pengirim, g.nama as guru_nama
+                     FROM chat c
+                     LEFT JOIN guru_bk g ON c.id_bk = g.id_bk
+                     WHERE c.id_siswa = '$id_siswa'
+                     AND c.waktu >= (SELECT waktu FROM chat WHERE id_chat = '" . $curhat_terbaru['id_chat'] . "')
+                     ORDER BY c.waktu ASC";
+    $result_thread = mysqli_query($conn, $query_thread);
+    while ($row = mysqli_fetch_assoc($result_thread)) {
+        $curhat_list[] = $row;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -102,44 +116,41 @@ while ($row = mysqli_fetch_assoc($result_curhat)) {
         <?php else: ?>
         <div style="display: flex; flex-direction: column; gap: 20px;">
             <?php 
-            // Group messages by conversation threads
-            $threads = [];
-            foreach ($curhat_list as $msg) {
-                if ($msg['pengirim'] == 'siswa') {
-                    $threads[$msg['id_chat']] = ['siswa_msg' => $msg, 'guru_replies' => []];
-                }
-            }
-            foreach ($curhat_list as $msg) {
-                if ($msg['pengirim'] == 'guru') {
-                    foreach ($threads as &$thread) {
-                        $thread['guru_replies'][] = $msg;
-                    }
-                }
-            }
-            ?>
+            // Display hanya curhat terbaru dengan balasannya
+            $siswa_msg = null;
+            $guru_replies = [];
             
-            <?php foreach ($threads as $thread_id => $thread): ?>
+            foreach ($curhat_list as $msg) {
+                if ($msg['pengirim'] == 'siswa' && $siswa_msg === null) {
+                    $siswa_msg = $msg;
+                } elseif ($msg['pengirim'] == 'guru') {
+                    $guru_replies[] = $msg;
+                }
+            }
+            
+            if ($siswa_msg !== null):
+            ?>
             <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                 <!-- Curhat Siswa -->
                 <div style="margin-bottom: 15px;">
                     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
                         <div>
                             <strong style="color: #333;">📝 Curhatmu</strong>
-                            <small style="color: #999; display: block; margin-top: 3px;"><?php echo date('d/m/Y H:i', strtotime($thread['siswa_msg']['waktu'])); ?></small>
+                            <small style="color: #999; display: block; margin-top: 3px;"><?php echo date('d/m/Y H:i', strtotime($siswa_msg['waktu'])); ?></small>
                         </div>
-                        <a href="../proses_curhat.php?aksi=hapus&id=<?php echo $thread['siswa_msg']['id_chat']; ?>" onclick="return confirm('Yakin ingin menghapus curhat ini?');" style="color: #d32f2f; text-decoration: none; font-size: 14px;">
+                        <a href="../proses_curhat.php?aksi=hapus&id=<?php echo $siswa_msg['id_chat']; ?>" onclick="return confirm('Yakin ingin menghapus curhat ini?');" style="color: #d32f2f; text-decoration: none; font-size: 14px;">
                             <i class="fas fa-trash"></i> Hapus
                         </a>
                     </div>
                     <div style="background: #f8f9fa; padding: 12px; border-radius: 5px; line-height: 1.6; color: #333;">
-                        <?php echo nl2br(htmlspecialchars($thread['siswa_msg']['pesan'])); ?>
+                        <?php echo nl2br(htmlspecialchars($siswa_msg['pesan'])); ?>
                     </div>
                 </div>
 
                 <!-- Respons Guru (jika ada) -->
-                <?php if (!empty($thread['guru_replies'])): ?>
+                <?php if (!empty($guru_replies)): ?>
                 <div style="border-top: 1px solid #e0e0e0; padding-top: 15px;">
-                    <?php foreach ($thread['guru_replies'] as $reply): ?>
+                    <?php foreach ($guru_replies as $reply): ?>
                     <div style="margin-bottom: 12px;">
                         <strong style="color: #6a1b9a;">💌 Balasan dari Guru BK</strong>
                         <small style="color: #999; display: block; margin-bottom: 8px;"><?php echo htmlspecialchars($reply['guru_nama'] ?? 'Guru BK'); ?> • <?php echo date('d/m/Y H:i', strtotime($reply['waktu'])); ?></small>
@@ -151,7 +162,8 @@ while ($row = mysqli_fetch_assoc($result_curhat)) {
                 </div>
                 <?php endif; ?>
             </div>
-            <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
         </div>
         <?php endif; ?>
     </div>
@@ -200,82 +212,6 @@ while ($row = mysqli_fetch_assoc($result_curhat)) {
                 star.style.animationDelay = Math.random() * 5 + 's';
                 container.appendChild(star);
             }
-        }
-    }
-</script>
-
-</body>
-</html>
-            pertanyaan: 'Saya baru di sekolah ini dan merasa sendirian. Bagaimana cara membuat teman?',
-            tanggal: '2026-04-05',
-            answered: true,
-            answer: 'Jangan malu untuk memulai percakapan. Ikuti kegiatan ekstrakurikuler, klub, atau organisasi yang kamu minati. Tunjukkan diri aslimu dan bersikaplah sopan. Teman sejati akan datang dengan waktu.',
-            answerBy: 'Bu Siti Rahma - Guru BK'
-        }
-    ];
-
-    // Character counter
-    document.getElementById('pertanyaan').addEventListener('input', function() {
-        document.getElementById('charCount').textContent = this.value.length + '/1000';
-    });
-
-
-
-    // Tutup modal
-    function closeModal() {
-        document.getElementById('answerModal').style.display = 'none';
-    }
-
-    // Submit form harapan baru
-    document.getElementById('submitForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const kategori = document.getElementById('kategori').value;
-        const pertanyaan = document.getElementById('pertanyaan').value;
-        const anonymous = document.getElementById('anonymous').checked;
-
-        if (!kategori || !pertanyaan) {
-            alert('Silakan lengkapi semua field');
-            return;
-        }
-
-        // Tambah harapan baru ke array
-        const newQuestion = {
-            id: Math.max(...allQuestions.map(q => q.id)) + 1,
-            kategori: kategori,
-            pertanyaan: pertanyaan,
-            tanggal: new Date().toISOString().split('T')[0],
-            answered: false,
-            answer: null,
-            answerBy: null
-        };
-
-        allQuestions.unshift(newQuestion);
-        alert('✨ Harapanmu telah dikirim! Guru BK akan segera menjawabnya.');
-        
-        document.getElementById('submitForm').reset();
-        document.getElementById('charCount').textContent = '0/1000';
-        
-        // Tampilkan notifikasi terbaru
-        displayNotifications();
-    });
-
-    // Load saat halaman dibuka
-    window.addEventListener('DOMContentLoaded', function() {
-        createFloatingStars();
-    });
-
-    // Buat floating stars animation
-    function createFloatingStars() {
-        const container = document.querySelector('.floating-stars');
-        for (let i = 0; i < 20; i++) {
-            const star = document.createElement('div');
-            star.className = 'floating-star';
-            star.textContent = '✨';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDelay = Math.random() * 5 + 's';
-            container.appendChild(star);
         }
     }
 </script>

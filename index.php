@@ -294,8 +294,8 @@ unset($_SESSION['error']);
         <form action="login_proses.php" method="POST">
             <input type="hidden" name="role" value="siswa">
             <div class="input-group">
-                <label for="siswa-username">Username</label>
-                <input type="text" id="siswa-username" name="username" placeholder="Masukkan username" required>
+                <label for="siswa-username">NISN</label>
+                <input type="text" id="siswa-username" name="username" placeholder="Masukkan NISN" required>
             </div>
 
             <div class="input-group">
