@@ -42,14 +42,14 @@ unset($_SESSION['tipe']);
         .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         
-        .settings-container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+       .settings-container {
+    width: 100%;
+    margin: 10px 0; /* jarak kecil saja */
+    padding: 25px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
         .form-group {
             margin-bottom: 15px;
         }
@@ -88,6 +88,38 @@ unset($_SESSION['tipe']);
             border-bottom: 2px solid #007bff;
             padding-bottom: 10px;
         }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 25%, #764ba2 75%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover {
+            transform: translateY(-5px);
+        }
+        .logo-section h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +128,12 @@ unset($_SESSION['tipe']);
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+        <div class="logo-section">
+            <div class="logo-icon">
+            <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2>Layanan Pengaduan</h2>
+        </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
@@ -111,8 +148,6 @@ unset($_SESSION['tipe']);
     <!-- Main -->
     <div class="main">
 
-        <div class="user"><?php echo htmlspecialchars($_SESSION['nama_guru']); ?></div>
-
         <?php if (!empty($pesan)): ?>
             <div class="alert alert-<?php echo $tipe; ?>">
                 <i class="fas fa-<?php echo ($tipe == 'success') ? 'check-circle' : 'exclamation-circle'; ?>"></i>
@@ -123,7 +158,7 @@ unset($_SESSION['tipe']);
         <!-- Form Pengaturan -->
         <div class="settings-container">
 
-            <h3>⚙️ Informasi Akun</h3>
+            <h3>Informasi Akun</h3>
 
             <form method="POST" action="proses_pengaturan.php">
                 <input type="hidden" name="aksi" value="update_profil">
@@ -155,7 +190,7 @@ unset($_SESSION['tipe']);
 
             </form>
 
-            <h3>🔒 Ubah Password</h3>
+            <h3>Ubah Password</h3>
 
             <form method="POST" action="proses_pengaturan.php">
                 <input type="hidden" name="aksi" value="update_password">

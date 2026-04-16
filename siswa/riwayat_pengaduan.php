@@ -32,11 +32,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Riwayat Pengaduan - PSAJ</title>
+    <title>Riwayat Pengaduan </title>
     <link rel="stylesheet" href="assets/css/pengaduan.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        body { font-family: Arial, sans-serif; background: #667eea; }
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
         .header-section { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
         .header-section h1 { color: #333; margin-bottom: 10px; }
@@ -80,7 +80,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="breadcrumb">
             <a href="dashboard.php">Dashboard</a> / <span>Riwayat Pengaduan</span>
         </div>
-        <h1>📋 Riwayat Pengaduan Saya</h1>
+        <h1> Riwayat Pengaduan Saya</h1>
         <p style="color: #666; margin-top: 5px;">Total Pengaduan: <strong><?php echo count($pengaduan_list); ?></strong></p>
     </div>
 

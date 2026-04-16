@@ -17,8 +17,29 @@ $query = "SELECT n.*, g.nama as guru_nama
           WHERE n.id_siswa = '$id_siswa'
           ORDER BY n.waktu DESC";
 $result = mysqli_query($conn, $query);
+if (!$result) {
+    error_log("Query error: " . mysqli_error($conn));
+}
 $notifications = [];
 while ($row = mysqli_fetch_assoc($result)) {
+    // Jika tipe adalah pengaduan, ambil detail balasan
+    if ($row['tipe'] == 'pengaduan' && preg_match('/id=(\d+)/', $row['link'], $matches)) {
+        $id_pengaduan = $matches[1];
+        $query_pengaduan = "SELECT tanggapan, status FROM pengaduan WHERE id_pengaduan='$id_pengaduan'";
+        $result_pengaduan = mysqli_query($conn, $query_pengaduan);
+        if ($pengaduan_data = mysqli_fetch_assoc($result_pengaduan)) {
+            $row['balasan_detail'] = $pengaduan_data['tanggapan'];
+            $row['status_pengaduan'] = $pengaduan_data['status'];
+        }
+    }
+    // Jika tipe adalah chat, ambil detail balasan
+    elseif ($row['tipe'] == 'chat') {
+        $query_chat = "SELECT c.pesan, c.waktu FROM chat c WHERE c.id_siswa='$id_siswa' AND c.pengirim='guru' AND c.id_bk='{$row['id_bk']}' ORDER BY c.waktu DESC LIMIT 1";
+        $result_chat = mysqli_query($conn, $query_chat);
+        if ($chat_data = mysqli_fetch_assoc($result_chat)) {
+            $row['balasan_detail'] = $chat_data['pesan'];
+        }
+    }
     $notifications[] = $row;
 }
 
@@ -148,6 +169,14 @@ $total_unread = $unread_data['total'] ?? 0;
                         <div class="notification-message">
                             <?php echo nl2br(htmlspecialchars($notif['pesan'])); ?>
                         </div>
+                        <?php if (isset($notif['balasan_detail']) && !empty($notif['balasan_detail'])): ?>
+                        <div style="margin-top: 15px; padding: 12px; background: #e8f5e9; border-left: 4px solid #4CAF50; border-radius: 4px;">
+                            <strong style="color: #2e7d32;">📝 Balasan dari Guru BK:</strong>
+                            <div style="margin-top: 8px; color: #333; line-height: 1.6;">
+                                <?php echo nl2br(htmlspecialchars($notif['balasan_detail'])); ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                         <?php if ($notif['id_bk']): ?>
                         <div class="notification-teacher">
                             <i class="fas fa-user-circle"></i> Dari: <?php echo htmlspecialchars($notif['guru_nama'] ?? 'Guru BK'); ?>

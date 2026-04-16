@@ -69,8 +69,6 @@ if (isset($_SESSION['pesan'])) {
             <div class="header-actions">
                 <a href="notif.php" class="notif-btn">
                     <i class="fas fa-bell"></i>
-                    <span class="notif-badge">2</span>
-                </a>
                 <a href="profile.php" class="profile-btn">
                     <i class="fas fa-user-circle"></i>
                 </a>

@@ -44,13 +44,13 @@ unset($_SESSION['tipe']);
         .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         
         .form-container {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    width: 100%;
+    margin: 10px 0; /* jarak kecil saja */
+    padding: 25px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
         .form-group {
             margin-bottom: 15px;
         }
@@ -125,7 +125,6 @@ unset($_SESSION['tipe']);
     </div>
 
     <div class="main">
-        <div class="user"><?php echo htmlspecialchars($_SESSION['nama_guru']); ?></div>
 
         <?php if (!empty($pesan)): ?>
             <div class="alert alert-<?php echo $tipe; ?>">

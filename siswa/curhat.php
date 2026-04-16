@@ -11,19 +11,19 @@ if (!isset($_SESSION['id_siswa'])) {
 $id_siswa = $_SESSION['id_siswa'];
 $nama_siswa = $_SESSION['nama_siswa'] ?? 'Siswa';
 
-// Ambil curhat siswa terbaru saja dari database
+// Ambil curhat siswa terbaru YANG DARI SISWA saja dari database
 $query_curhat = "SELECT c.id_chat, c.pesan, c.waktu, c.pengirim, g.nama as guru_nama
                  FROM chat c
                  LEFT JOIN guru_bk g ON c.id_bk = g.id_bk
-                 WHERE c.id_siswa = '$id_siswa'
+                 WHERE c.id_siswa = '$id_siswa' AND c.pengirim = 'siswa'
                  ORDER BY c.waktu DESC
                  LIMIT 1";
 $result_curhat = mysqli_query($conn, $query_curhat);
 $curhat_terbaru = mysqli_fetch_assoc($result_curhat);
 
-// Ambil semua balasan untuk curhat terbaru
+// Ambil semua pesan (curhat siswa dan balasan guru)
 $curhat_list = [];
-if ($curhat_terbaru && $curhat_terbaru['pengirim'] == 'siswa') {
+if ($curhat_terbaru) {
     // Ambil curhat terbaru dan semua balasnnya
     $query_thread = "SELECT c.id_chat, c.pesan, c.waktu, c.pengirim, g.nama as guru_nama
                      FROM chat c
@@ -33,6 +33,17 @@ if ($curhat_terbaru && $curhat_terbaru['pengirim'] == 'siswa') {
                      ORDER BY c.waktu ASC";
     $result_thread = mysqli_query($conn, $query_thread);
     while ($row = mysqli_fetch_assoc($result_thread)) {
+        $curhat_list[] = $row;
+    }
+} else {
+    // Jika tidak ada curhat dari siswa, tampilkan semua percakapan dengan urutan terbaru
+    $query_all = "SELECT c.id_chat, c.pesan, c.waktu, c.pengirim, g.nama as guru_nama
+                  FROM chat c
+                  LEFT JOIN guru_bk g ON c.id_bk = g.id_bk
+                  WHERE c.id_siswa = '$id_siswa'
+                  ORDER BY c.waktu ASC";
+    $result_all = mysqli_query($conn, $query_all);
+    while ($row = mysqli_fetch_assoc($result_all)) {
         $curhat_list[] = $row;
     }
 }
@@ -51,8 +62,10 @@ if ($curhat_terbaru && $curhat_terbaru['pengirim'] == 'siswa') {
 
 <div class="wishing-wall-container">
     
-    <!-- Floating Background Elements -->
-    <div class="floating-stars"></div>
+    <a href="dashboard.php" class="back-btn">
+    <i class="fas fa-arrow-left"></i>
+    Kembali ke Dashboard
+</a>
 
     <!-- Header -->
     <div class="wishing-header">
@@ -116,51 +129,40 @@ if ($curhat_terbaru && $curhat_terbaru['pengirim'] == 'siswa') {
         <?php else: ?>
         <div style="display: flex; flex-direction: column; gap: 20px;">
             <?php 
-            // Display hanya curhat terbaru dengan balasannya
-            $siswa_msg = null;
-            $guru_replies = [];
-            
-            foreach ($curhat_list as $msg) {
-                if ($msg['pengirim'] == 'siswa' && $siswa_msg === null) {
-                    $siswa_msg = $msg;
-                } elseif ($msg['pengirim'] == 'guru') {
-                    $guru_replies[] = $msg;
-                }
-            }
-            
-            if ($siswa_msg !== null):
+            if (count($curhat_list) > 0):
             ?>
             <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                <!-- Curhat Siswa -->
+                <!-- Tampilkan semua pesan dalam urutan kronologis -->
+                <?php foreach ($curhat_list as $msg): ?>
                 <div style="margin-bottom: 15px;">
+                    <?php if ($msg['pengirim'] == 'siswa'): ?>
+                    <!-- Curhat Siswa -->
                     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">
                         <div>
                             <strong style="color: #333;">📝 Curhatmu</strong>
-                            <small style="color: #999; display: block; margin-top: 3px;"><?php echo date('d/m/Y H:i', strtotime($siswa_msg['waktu'])); ?></small>
+                            <small style="color: #999; display: block; margin-top: 3px;"><?php echo date('d/m/Y H:i', strtotime($msg['waktu'])); ?></small>
                         </div>
-                        <a href="../proses_curhat.php?aksi=hapus&id=<?php echo $siswa_msg['id_chat']; ?>" onclick="return confirm('Yakin ingin menghapus curhat ini?');" style="color: #d32f2f; text-decoration: none; font-size: 14px;">
+                        <a href="../proses_curhat.php?aksi=hapus&id=<?php echo $msg['id_chat']; ?>" onclick="return confirm('Yakin ingin menghapus curhat ini?');" style="color: #d32f2f; text-decoration: none; font-size: 14px;">
                             <i class="fas fa-trash"></i> Hapus
                         </a>
                     </div>
                     <div style="background: #f8f9fa; padding: 12px; border-radius: 5px; line-height: 1.6; color: #333;">
-                        <?php echo nl2br(htmlspecialchars($siswa_msg['pesan'])); ?>
+                        <?php echo nl2br(htmlspecialchars($msg['pesan'])); ?>
                     </div>
-                </div>
-
-                <!-- Respons Guru (jika ada) -->
-                <?php if (!empty($guru_replies)): ?>
-                <div style="border-top: 1px solid #e0e0e0; padding-top: 15px;">
-                    <?php foreach ($guru_replies as $reply): ?>
-                    <div style="margin-bottom: 12px;">
+                    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
+                    <?php else: ?>
+                    <!-- Balasan Guru -->
+                    <div>
                         <strong style="color: #6a1b9a;">💌 Balasan dari Guru BK</strong>
-                        <small style="color: #999; display: block; margin-bottom: 8px;"><?php echo htmlspecialchars($reply['guru_nama'] ?? 'Guru BK'); ?> • <?php echo date('d/m/Y H:i', strtotime($reply['waktu'])); ?></small>
+                        <small style="color: #999; display: block; margin-bottom: 8px;"><?php echo htmlspecialchars($msg['guru_nama'] ?? 'Guru BK'); ?> • <?php echo date('d/m/Y H:i', strtotime($msg['waktu'])); ?></small>
                         <div style="background: #f3e5f5; padding: 12px; border-radius: 5px; line-height: 1.6; color: #333;">
-                            <?php echo nl2br(htmlspecialchars($reply['pesan'])); ?>
+                            <?php echo nl2br(htmlspecialchars($msg['pesan'])); ?>
                         </div>
                     </div>
-                    <?php endforeach; ?>
+                    <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
             <?php endif; ?>
         </div>
@@ -194,26 +196,12 @@ if ($curhat_terbaru && $curhat_terbaru['pengirim'] == 'siswa') {
         document.getElementById('answerModal').style.display = 'none';
     }
 
-    // Load saat halaman dibuka
-    window.addEventListener('DOMContentLoaded', function() {
-        createFloatingStars();
-    });
+    
+</script>
 
-    // Buat floating stars animation
-    function createFloatingStars() {
-        const container = document.querySelector('.floating-stars');
-        if (container) {
-            for (let i = 0; i < 20; i++) {
-                const star = document.createElement('div');
-                star.className = 'floating-star';
-                star.textContent = '✨';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(star);
-            }
-        }
-    }
+</body>
+</html>
+           
 </script>
 
 </body>

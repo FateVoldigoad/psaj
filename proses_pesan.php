@@ -36,9 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['tipe'] = 'success';
                 
                 // Buat notifikasi untuk siswa
-                $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status) 
-                               VALUES ('$id_siswa', '$id_bk', 'Balasan Curhat Baru', 'Guru BK telah membalas curhatmu. Silakan cek balasan kami.', 'chat', 'belum')";
-                mysqli_query($conn, $query_notif);
+                $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status, waktu) 
+                               VALUES ('$id_siswa', '$id_bk', 'Balasan Curhat Baru', 'Guru BK telah membalas curhatmu. Silakan cek balasan kami.', 'chat', 'belum', NOW())";
+                if (!mysqli_query($conn, $query_notif)) {
+                    error_log("Gagal membuat notifikasi: " . mysqli_error($conn));
+                }
             } else {
                 $_SESSION['pesan'] = 'Gagal mengirim balasan: ' . mysqli_error($conn);
                 $_SESSION['tipe'] = 'error';

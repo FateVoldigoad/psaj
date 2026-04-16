@@ -140,13 +140,50 @@ unset($_SESSION['tipe']);
         }
         .alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
         .alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 25%, #764ba2 75%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover {
+            transform: translateY(-5px);
+        }
+        .logo-section h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+        <div class="logo-section">
+            <div class="logo-icon">
+              <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2>Layanan Pengaduan</h2>
+        </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li class="active"><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
@@ -159,7 +196,6 @@ unset($_SESSION['tipe']);
     </div>
 
     <div class="main">
-        <div class="user"><?php echo htmlspecialchars($_SESSION['nama_guru']); ?></div>
 
         <?php if (!empty($pesan)): ?>
             <div class="alert alert-<?php echo $tipe; ?>">
@@ -167,7 +203,7 @@ unset($_SESSION['tipe']);
             </div>
         <?php endif; ?>
 
-        <h2 style="margin-bottom: 20px;">📋 Tanggapi Pengaduan</h2>
+        <h2 style="margin-bottom: 20px;"> Tanggapi Pengaduan</h2>
 
         <!-- Detail Pengaduan -->
         <div class="detail-box">

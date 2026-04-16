@@ -123,6 +123,38 @@ while ($row = mysqli_fetch_assoc($result)) {
         .table-scroll::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 25%, #764ba2 75%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover {
+            transform: translateY(-5px);
+        }
+        .logo-section h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -131,7 +163,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+        <div class="logo-section">
+            <div class="logo-icon">
+              <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2>Layanan Pengaduan</h2>
+        </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li class="active"><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
@@ -145,8 +182,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <!-- Main -->
     <div class="main">
-
-        <div class="user">Guru BK</div>
 
         <?php if (isset($_SESSION['pesan'])): ?>
             <div class="alert alert-<?php echo $_SESSION['tipe']; ?>">

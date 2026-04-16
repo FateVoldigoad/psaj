@@ -15,22 +15,6 @@ $query_siswa = "SELECT * FROM siswa WHERE id_siswa='$id_siswa'";
 $result_siswa = mysqli_query($conn, $query_siswa);
 $siswa = mysqli_fetch_assoc($result_siswa);
 
-// Get statistics
-$query_pengaduan_total = "SELECT COUNT(*) as total FROM pengaduan WHERE id_siswa='$id_siswa'";
-$result_total = mysqli_query($conn, $query_pengaduan_total);
-$total_pengaduan = mysqli_fetch_assoc($result_total)['total'];
-
-$query_pengaduan_baru = "SELECT COUNT(*) as baru FROM pengaduan WHERE id_siswa='$id_siswa' AND status='baru'";
-$result_baru = mysqli_query($conn, $query_pengaduan_baru);
-$pengaduan_baru = mysqli_fetch_assoc($result_baru)['baru'];
-
-$query_pengaduan_diproses = "SELECT COUNT(*) as diproses FROM pengaduan WHERE id_siswa='$id_siswa' AND status='diproses'";
-$result_diproses = mysqli_query($conn, $query_pengaduan_diproses);
-$pengaduan_diproses = mysqli_fetch_assoc($result_diproses)['diproses'];
-
-$query_pengaduan_selesai = "SELECT COUNT(*) as selesai FROM pengaduan WHERE id_siswa='$id_siswa' AND status='selesai'";
-$result_selesai = mysqli_query($conn, $query_pengaduan_selesai);
-$pengaduan_selesai = mysqli_fetch_assoc($result_selesai)['selesai'];
 
 $query_notif_belum = "SELECT COUNT(*) as belum FROM notifikasi WHERE id_siswa='$id_siswa' AND status='belum'";
 $result_notif = mysqli_query($conn, $query_notif_belum);
@@ -42,7 +26,7 @@ $notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Siswa</title>
+    <title>SPEAKTEN</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -55,25 +39,38 @@ $notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
 </head>
 <body>
     <!-- Navigation Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-section">
-                <h1 class="brand-name">Dashboard Siswa</h1>
-                <p style="font-size: 14px; color: #666;">Selamat datang, <?php echo htmlspecialchars($siswa['nama']); ?> 👋</p>
-            </div>
-            <div class="header-actions">
-                <a href="notif.php" class="notif-btn">
-                    <i class="fas fa-bell"></i>
-                    <?php if ($notif_belum > 0): ?>
-                        <span class="notif-badge"><?php echo $notif_belum; ?></span>
-                    <?php endif; ?>
-                </a>
-                <a href="profile.php" class="profile-btn">
-                    <i class="fas fa-user-circle"></i>
-                </a>
+   <header class="header">
+    <div class="header-content">
+
+        <!-- BAGIAN KIRI -->
+        <div class="logo-section" style="display: flex; align-items: center; gap: 15px;">
+            <img src="../assets/logos.png" alt="logo" style="width: 150px; height: 60px; object-fit: contain;">
+            
+            <div>
+                <h1 class="brand-name" style="margin: 0;">SPEAKTEN</h1>
+                <p style="font-size: 14px; color: #666; margin: 0;">
+                    Selamat datang, <?php echo htmlspecialchars($siswa['nama']); ?> 👋
+                </p>
             </div>
         </div>
-    </header>
+
+        <!-- BAGIAN KANAN -->
+        <div class="header-actions">
+            <a href="notif.php" class="notif-btn">
+                <i class="fas fa-bell"></i>
+                <?php if ($notif_belum > 0): ?>
+                    <span class="notif-badge"><?php echo $notif_belum; ?></span>
+                <?php endif; ?>
+            </a>
+
+            <a href="profile.php" class="profile-btn">
+                <i class="fas fa-user-circle"></i>
+            </a>
+        </div>
+
+    </div>
+</header>
+    
 
     <!-- Background Decoration -->
     <div class="shapes">
@@ -86,30 +83,16 @@ $notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
         <!-- Welcome Section -->
         <section class="welcome-section">
             <div class="welcome-content">
-                <h2 class="welcome-title">Dashboard Siswa 📊</h2>
-                <p class="welcome-desc">Kelola pengaduan, konsultasi, dan komunikasi dengan Guru BK</p>
+            <h2 class="welcome-title" style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    <span>Dashboard Siswa</span>
+    <img src="../assets/interaction.png" alt="logo" style="width: 40px; height: 40px;">
+</h2>
+                <p class="welcome-desc">Akses layanan pengaduan, konsultasi, dan komunikasi dengan Guru BK secara mudah, aman, dan nyaman dalam satu platform</p>
             </div>
         </section>
 
         <!-- Statistics Section -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-number"><?php echo $total_pengaduan; ?></div>
-                <div class="stat-label">Total Pengaduan</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number"><?php echo $pengaduan_baru; ?></div>
-                <div class="stat-label">Pengaduan Baru</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number"><?php echo $pengaduan_diproses; ?></div>
-                <div class="stat-label">Dalam Proses</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number"><?php echo $pengaduan_selesai; ?></div>
-                <div class="stat-label">Selesai</div>
-            </div>
-        </div>
+        
 
         <!-- Services Grid -->
         <section class="services-grid">

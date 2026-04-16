@@ -88,6 +88,38 @@ unset($_SESSION['tipe']);
             gap: 5px;
             margin-bottom: 20px;
         }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 25%, #764ba2 75%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover {
+            transform: translateY(-5px);
+        }
+        .logo-section h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -96,7 +128,12 @@ unset($_SESSION['tipe']);
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+        <div class="logo-section">
+            <div class="logo-icon">
+              <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2>Layanan Pengaduan</h2>
+        </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
@@ -111,7 +148,6 @@ unset($_SESSION['tipe']);
     <!-- Main -->
     <div class="main">
 
-        <div class="user"><?php echo htmlspecialchars($_SESSION['nama_guru']); ?></div>
 
         <?php if (!empty($pesan)): ?>
             <div class="alert alert-<?php echo $tipe; ?>">
@@ -120,20 +156,22 @@ unset($_SESSION['tipe']);
             </div>
         <?php endif; ?>
 
-        <h2 style="margin-bottom: 20px;">👥 Data Siswa</h2>
+        <h2 style="margin-bottom: 20px;"> Data Siswa</h2>
 
         <!-- Action Buttons -->
-        <div class="action-btn-group">
-            <a href="tambah_siswa_guru.php" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Tambah Siswa
-            </a>
-        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
 
-        <!-- Search Bar -->
-        <div style="margin-bottom: 20px;">
-            <input type="text" id="searchInput" placeholder="Cari siswa..." style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 300px;" onkeyup="filterTable()">
-        </div>
+    <!-- Search kiri -->
+    <input type="text" id="searchInput" placeholder="Cari siswa..." 
+    style="padding: 10px; border: 1px solid #ddd; border-radius: 4px; width: 300px;" 
+    onkeyup="filterTable()">
 
+    <!-- Button kanan -->
+    <a href="tambah_siswa_guru.php" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Tambah Siswa
+    </a>
+
+</div>
         <!-- Table Scroll Container -->
         <div class="table-scroll">
         <!-- Table -->

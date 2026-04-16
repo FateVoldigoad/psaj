@@ -45,7 +45,7 @@ while ($row = mysqli_fetch_assoc($result_kelas)) {
     <link rel="stylesheet" href="css/edit_siswa.css">
     <style>
         .form-container {
-            max-width: 600px;
+            width: 900px;
             margin: 30px auto;
             padding: 20px;
             background: white;
@@ -126,7 +126,6 @@ while ($row = mysqli_fetch_assoc($result_kelas)) {
     </div>
 
     <div class="main">
-        <div class="user"><?php echo htmlspecialchars($_SESSION['nama_guru']); ?></div>
 
         <div class="form-container">
             <h2>Edit Data Siswa</h2>

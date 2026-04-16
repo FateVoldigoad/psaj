@@ -47,6 +47,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         .status-selesai { background: #28a745; color: white; }
         .filter-section {
             background: white;
+            max-width: 290px;
             padding: 20px;
             border-radius: 8px;
             margin-bottom: 20px;
@@ -133,6 +134,38 @@ while ($row = mysqli_fetch_assoc($result)) {
             padding: 40px 20px;
             color: #999;
         }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 25%, #764ba2 75%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover {
+            transform: translateY(-5px);
+        }
+        .logo-section h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -141,7 +174,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2>Layanan Pengaduan</h2>
+        </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
@@ -156,9 +194,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     <!-- Main -->
     <div class="main">
 
-        <div class="user"><?php echo htmlspecialchars($_SESSION['nama_guru']); ?></div>
 
-        <h2 style="margin-bottom: 20px;">📋 Riwayat Pengaduan</h2>
+        <h2 style="margin-bottom: 20px;"> Riwayat Pengaduan</h2>
 
         <!-- Filter Section -->
         <div class="filter-section">

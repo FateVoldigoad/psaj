@@ -50,6 +50,31 @@ body {
     z-index: 1;
 }
 
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    
+    border: 1px solid rgba(255,255,255,0.2);
+    
+    transition: 0.3s;
+    margin: 20px auto;
+}
+
+.back-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
 /* Header */
 .wishing-header {
     background: rgba(255, 255, 255, 0.95);
@@ -381,7 +406,6 @@ body {
     line-height: 1.5;
     font-size: 0.95em;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 60px;

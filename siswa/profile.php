@@ -35,14 +35,13 @@ if (!$siswa) {
     <header class="header">
         <div class="header-content">
             <div class="logo-section">
-                <img src="assets/Logo.png" alt="Logo" class="logo">
+              <img src="../assets/interaction.png" alt="logo" style="width: 40px; height: 40px;">
                 <h1 class="brand-name">SMKN 10 SURABAYA</h1>
             </div>
             <div class="header-actions">
                 <a href="notif.php" class="notif-btn">
                     <i class="fas fa-bell"></i>
-                    <span class="notif-badge">2</span>
-                </a>
+                    
                 <a href="profile.php" class="profile-btn active">
                     <i class="fas fa-user-circle"></i>
                 </a>

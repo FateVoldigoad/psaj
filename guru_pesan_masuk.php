@@ -75,11 +75,11 @@ $total_unread_count = $total_data['total'] ?? 0;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .chat-container { display: flex; flex-direction: column; gap: 20px; }
-        .chat-list { border: 1px solid #ddd; border-radius: 8px; background: white; }
-        .chat-item { padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; background: white; }
+        .chat-list { border: 1px solid #ddd; border-radius: 10px; background: white; }
+        .chat-item { padding: 15px; border-radius: 10px; border-bottom: 1px solid #eee; cursor: pointer; background: white; }
         .chat-item:hover { background: #f5f5f5; }
-        .chat-item.active { background: #e3f2fd; border-left: 4px solid #2196F3; }
-        .chat-item-name { font-weight: bold; }
+        .chat-item.active { background: #e3f2fd; border-radius: 10px; border-left: 4px solid #2196F3; }
+        .chat-item-name { font-weight: bold; border-radius: 10px; }
         .chat-item-preview { font-size: 12px; color: #999; margin-top: 5px; }
         .chat-item-badge { display: inline-block; background: #ff9800; color: white; font-size: 11px; padding: 2px 6px; border-radius: 10px; float: right; }
         .messages-area { background: white; border-radius: 8px; border: 1px solid #ddd; padding: 20px; max-height: 500px; overflow-y: auto; position: relative; }
@@ -91,8 +91,40 @@ $total_unread_count = $total_data['total'] ?? 0;
         .message-sender.guru { color: #2e7d32; }
         .message-content { color: #333; line-height: 1.6; margin-bottom: 8px; }
         .message-time { font-size: 12px; color: #999; }
-        .siswa-info { padding: 15px; background: #f5f5f5; border-bottom: 1px solid #ddd; }
-        .reply-area { padding: 15px; background: white; border-top: 1px solid #ddd; }
+        .siswa-info { padding: 15px; border-radius: 10px; background: #f5f5f5; border-bottom: 1px solid #ddd; }
+        .reply-area { padding: 15px; border-radius: 10px; background: white; border-top: 1px solid #ddd; }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin-bottom: 25px;
+        }
+        .logo-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 25%, #764ba2 75%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+        .logo-icon:hover {
+            transform: translateY(-5px);
+        }
+        .logo-section h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -101,7 +133,12 @@ $total_unread_count = $total_data['total'] ?? 0;
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fa-solid fa-shield-heart"></i>
+            </div>
+            <h2>Layanan Pengaduan</h2>
+        </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>
@@ -116,9 +153,11 @@ $total_unread_count = $total_data['total'] ?? 0;
     <!-- Main -->
     <div class="main">
 
-        <div class="user"><?php echo htmlspecialchars($nama_guru); ?></div>
 
-        <h2>📬 Pesan Masuk <?php if ($total_unread_count > 0) echo "<span style='background: #ff9800; color: white; padding: 3px 8px; border-radius: 10px; font-size: 12px; margin-left: 10px;'>$total_unread_count Baru</span>"; ?></h2>
+       <h2 style="margin-top: 15px; margin-bottom: 15px;">
+     Pesan Masuk 
+    <?php if ($total_unread_count > 0) echo "<span style='background: #ff9800; color: white; padding: 3px 8px; border-radius: 10px; font-size: 12px; margin-left: 10px;'>$total_unread_count Baru</span>"; ?>
+</h2>
 
         <!-- Status Messages -->
         <?php if (isset($_SESSION['pesan'])): ?>
@@ -185,34 +224,34 @@ $total_unread_count = $total_data['total'] ?? 0;
                     </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
+                <div class="reply-area">
+                    <form method="POST" action="proses_pesan.php?aksi=balas" style="display: flex; gap: 10px;">
+                        <input type="hidden" name="id_siswa" value="<?php echo $id_siswa_selected; ?>">
+                        <input type="hidden" name="id_chat_original" value="<?php echo isset($messages[0]) ? $messages[0]['id_chat'] : '0'; ?>">
+                        <textarea name="pesan" placeholder="Ketik balasan di sini..." style="flex: 1; padding: 10px; border-radius: 5px; font-family: Arial; font-size: 14px; resize: vertical; min-height: 60px;" required></textarea>
+                        <button type="submit" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            <i class="fas fa-paper-plane"></i> Kirim
+                        </button>
+                    </form>
+                </div>
+                <!-- Reply Area -->
+    
+                <?php else: ?>
+                
+                <div style="display: flex; align-items: center; justify-content: center; height: 400px; font-size: 18px; color: #999;">
+                    Pilih percakapan untuk memulai
+                </div>
+    
+                <?php endif; ?>
+                </div>
+    
             </div>
-
-            <!-- Reply Area -->
-            <div class="reply-area">
-                <form method="POST" action="proses_pesan.php?aksi=balas" style="display: flex; gap: 10px;">
-                    <input type="hidden" name="id_siswa" value="<?php echo $id_siswa_selected; ?>">
-                    <input type="hidden" name="id_chat_original" value="<?php echo isset($messages[0]) ? $messages[0]['id_chat'] : '0'; ?>">
-                    <textarea name="pesan" placeholder="Ketik balasan di sini..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: Arial; font-size: 14px; resize: vertical; min-height: 60px;" required></textarea>
-                    <button type="submit" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
-                        <i class="fas fa-paper-plane"></i> Kirim
-                    </button>
-                </form>
-            </div>
-
-            <?php else: ?>
-            
-            <div style="display: flex; align-items: center; justify-content: center; height: 400px; font-size: 18px; color: #999;">
-                Pilih percakapan untuk memulai
-            </div>
-
-            <?php endif; ?>
-            </div>
-
+    
         </div>
-
+    
     </div>
+            </div>
 
-</div>
 
 <script>
 // Auto scroll ke bawah saat halaman load

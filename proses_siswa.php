@@ -32,7 +32,7 @@ if ($aksi == 'tambah') {
         $_SESSION['pesan'] = 'Error: ' . mysqli_error($conn);
         $_SESSION['tipe'] = 'error';
     }
-    header("Location: data_siswa.php");
+    header("Location: guru_data_siswa.php");
     exit;
 }
 
@@ -61,7 +61,7 @@ elseif ($aksi == 'edit') {
         $_SESSION['pesan'] = 'Error: ' . mysqli_error($conn);
         $_SESSION['tipe'] = 'error';
     }
-    header("Location: guru_guru_data_siswa.php");
+    header("Location: guru_data_siswa.php");
     exit;
 }
 

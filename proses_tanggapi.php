@@ -38,9 +38,11 @@ if ($aksi == 'tanggapi') {
             $pesan_notif = "Pengaduan Anda sudah ditanggapi oleh Guru BK. Silakan cek balasan kami.";
             $link_notif = "siswa/riwayat_pengaduan.php?id=" . $id_pengaduan;
             
-            $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status, link) 
-                           VALUES ('$id_siswa', '$id_bk', '$judul_notif', '$pesan_notif', 'pengaduan', 'belum', '$link_notif')";
-            mysqli_query($conn, $query_notif);
+            $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status, link, waktu) 
+                           VALUES ('$id_siswa', '$id_bk', '$judul_notif', '$pesan_notif', 'pengaduan', 'belum', '$link_notif', NOW())";
+            if (!mysqli_query($conn, $query_notif)) {
+                error_log("Gagal membuat notifikasi: " . mysqli_error($conn));
+            }
             
             $_SESSION['pesan'] = 'Tanggapan berhasil dikirim!';
             $_SESSION['tipe'] = 'success';
