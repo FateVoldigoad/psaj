@@ -59,8 +59,8 @@ $total_unread = $unread_data['total'] ?? 0;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .notif-header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .btn-mark-all { background: #2196F3; color: white; padding: 8px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
-        .btn-mark-all:hover { background: #1976D2; }
+        .btn-mark-all { background: #2196F3; color: white; padding: 8px 15px; border: none; border-radius: 25px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2); }
+        .btn-mark-all:hover { background: #1976D2; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3); }
         .notification-item { 
             background: white; 
             padding: 20px; 
@@ -95,17 +95,26 @@ $total_unread = $unread_data['total'] ?? 0;
         }
         .btn-action { 
             font-size: 12px; 
-            padding: 6px 12px; 
+            padding: 8px 16px; 
             border: none; 
-            border-radius: 4px; 
+            border-radius: 25px; 
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        .btn-read { background: #4CAF50; color: white; }
-        .btn-read:hover { background: #45a049; }
-        .btn-delete { background: #f44336; color: white; }
-        .btn-delete:hover { background: #da190b; }
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .btn-read { background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%); color: white; }
+        .btn-read:hover { background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%); box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3); }
+        .btn-delete { background: linear-gradient(135deg, #f44336 0%, #e53935 100%); color: white; }
+        .btn-delete:hover { background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%); box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3); }
         .empty-state { text-align: center; padding: 60px 20px; color: #999; }
         .empty-icon { font-size: 60px; margin-bottom: 20px; }
         @keyframes slideInLeft { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
