@@ -35,6 +35,7 @@ $notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
         .stat-number { font-size: 32px; font-weight: bold; color: #007bff; }
         .stat-label { font-size: 14px; color: #666; margin-top: 5px; }
         .recent-box { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-top: 20px; }
+        .logo-section {width : 700px;}
     </style>
 </head>
 <body>
@@ -44,7 +45,7 @@ $notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
 
         <!-- BAGIAN KIRI -->
         <div class="logo-section" style="display: flex; align-items: center; gap: 15px;">
-            <img src="../assets/logos.png" alt="logo" style="width: 150px; height: 60px; object-fit: contain;">
+          <i class="fa-solid fa-shield-heart fa-3x"></i>
             
             <div>
                 <h1 class="brand-name" style="margin: 0;">SPEAKTEN</h1>
@@ -87,7 +88,7 @@ $notif_belum = mysqli_fetch_assoc($result_notif)['belum'];
     <span>Dashboard Siswa</span>
     <img src="../assets/interaction.png" alt="logo" style="width: 40px; height: 40px;">
 </h2>
-                <p class="welcome-desc">Akses layanan pengaduan, konsultasi, dan komunikasi dengan Guru BK secara mudah, aman, dan nyaman dalam satu platform</p>
+                <p class="welcome-desc">Akses layanan pengaduan, konsultasi, dan komunikasi dengan Guru BK secara mudah, aman, dan nyaman dalam satu platform.</p>
             </div>
         </section>
 

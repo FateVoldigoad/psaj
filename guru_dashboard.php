@@ -103,7 +103,7 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
             <div class="logo-icon">
                <i class="fa-solid fa-shield-heart"></i>
             </div>
-            <h2>Layanan Pengaduan</h2>
+            <h2 style="color: #667eea">SPEAKTEN</h2>
         </div>
         <ul>
             <li class="active"><a href="guru_dashboard.php">Dashboard</a></li>

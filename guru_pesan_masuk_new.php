@@ -209,7 +209,7 @@ $total_unread_count = $total_data['total'] ?? 0;
             <div class="logo-icon">
            <i class="fa-solid fa-shield-heart"></i>
             </div>
-            <h2>Layanan Pengaduan</h2>
+             <h2 style="color: #667eea">SPEAKTEN</h2>
         </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>

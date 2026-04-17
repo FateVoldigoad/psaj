@@ -112,7 +112,7 @@ unset($_SESSION['tipe']);
 
 <div class="container">
     <div class="sidebar">
-        <h2>Layanan Pengaduan</h2>
+      <h2 style="color: #667eea">SPEAKTEN</h2>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
             <li><a href="guru_data_pengaduan.php">Data Pengaduan</a></li>

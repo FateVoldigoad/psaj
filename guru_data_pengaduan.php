@@ -167,7 +167,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <div class="logo-icon">
               <i class="fa-solid fa-shield-heart"></i>
             </div>
-            <h2>Layanan Pengaduan</h2>
+            <h2 style="color: #667eea">SPEAKTEN</h2>
         </div>
         <ul>
             <li><a href="guru_dashboard.php">Dashboard</a></li>
@@ -191,7 +191,11 @@ while ($row = mysqli_fetch_assoc($result)) {
         <?php endif; ?>
 
         <!-- Header Table -->
-        <div class="table-header">
+        <div>
+    <h2 style="margin: 0; font-weight: bold;">Data Pengaduan</h2>
+</div>
+
+<div class="table-header">
             <input type="text" placeholder="Cari pengaduan..." class="search" id="searchInput" onkeyup="filterTable()">
         </div>
 

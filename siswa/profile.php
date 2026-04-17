@@ -35,8 +35,8 @@ if (!$siswa) {
     <header class="header">
         <div class="header-content">
             <div class="logo-section">
-              <img src="../assets/interaction.png" alt="logo" style="width: 40px; height: 40px;">
-                <h1 class="brand-name">SMKN 10 SURABAYA</h1>
+             <i class="fa-solid fa-shield-heart fa-3x"></i>
+                <h1 class="brand-name">SPEAKTEN</h1>
             </div>
             <div class="header-actions">
                 <a href="notif.php" class="notif-btn">
