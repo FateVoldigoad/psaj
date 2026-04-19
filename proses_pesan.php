@@ -38,8 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Buat notifikasi untuk siswa
                 $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status, waktu) 
                                VALUES ('$id_siswa', '$id_bk', 'Balasan Curhat Baru', 'Guru BK telah membalas curhatmu. Silakan cek balasan kami.', 'chat', 'belum', NOW())";
-                if (!mysqli_query($conn, $query_notif)) {
-                    error_log("Gagal membuat notifikasi: " . mysqli_error($conn));
+                if (mysqli_query($conn, $query_notif)) {
+                    $notif_id = mysqli_insert_id($conn);
+                    error_log("Notifikasi chat baru DIBUAT untuk siswa ID $id_siswa dengan ID notifikasi $notif_id pada " . date('Y-m-d H:i:s'));
+                } else {
+                    error_log("Gagal membuat notifikasi chat untuk siswa ID $id_siswa: " . mysqli_error($conn));
                 }
             } else {
                 $_SESSION['pesan'] = 'Gagal mengirim balasan: ' . mysqli_error($conn);

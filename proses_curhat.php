@@ -24,14 +24,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['tipe'] = 'error';
         } else {
             // Insert ke chat table - gunakan id_bk=1 (Guru BK utama)
-            $query = "INSERT INTO chat (id_siswa, id_bk, pengirim, pesan, dibaca, waktu) 
-                      VALUES ('$id_siswa', 1, 'siswa', '$pesan', 'belum', NOW())";
+            $query = "INSERT INTO chat (id_siswa, id_bk, pengirim, kategori, pesan, dibaca, waktu) 
+                      VALUES ('$id_siswa', 1, 'siswa', '$kategori', '$pesan', 'belum', NOW())";
             
             if (mysqli_query($conn, $query)) {
                 $_SESSION['pesan'] = '✨ Curhatmu telah dikirim! Guru BK akan segera meresponnya.';
                 $_SESSION['tipe'] = 'success';
             } else {
                 $_SESSION['pesan'] = 'Gagal mengirim curhat: ' . mysqli_error($conn);
+                $_SESSION['tipe'] = 'error';
+            }
+        }
+    }
+    
+    // CREATE - Siswa membalas pesan guru
+    if ($aksi == 'balas') {
+        $pesan = mysqli_real_escape_string($conn, $_POST['pesan']);
+        
+        // Validasi
+        if (empty($pesan)) {
+            $_SESSION['pesan'] = 'Isi balasan tidak boleh kosong!';
+            $_SESSION['tipe'] = 'error';
+        } else {
+            // Insert ke chat table - balasan siswa
+            $query = "INSERT INTO chat (id_siswa, id_bk, pengirim, pesan, dibaca, waktu) 
+                      VALUES ('$id_siswa', 1, 'siswa', '$pesan', 'belum', NOW())";
+            
+            if (mysqli_query($conn, $query)) {
+                $_SESSION['pesan'] = '✨ Balaasanmu telah dikirim ke Guru BK!';
+                $_SESSION['tipe'] = 'success';
+                
+                // Buat notifikasi untuk guru
+                $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status, waktu) 
+                               VALUES ('$id_siswa', 1, 'Balasan Siswa Baru', 'Siswa telah membalas curhatnya. Silakan cek balasan kami.', 'chat', 'belum', NOW())";
+                if (!mysqli_query($conn, $query_notif)) {
+                    error_log("Gagal membuat notifikasi: " . mysqli_error($conn));
+                }
+            } else {
+                $_SESSION['pesan'] = 'Gagal mengirim balasan: ' . mysqli_error($conn);
                 $_SESSION['tipe'] = 'error';
             }
         }

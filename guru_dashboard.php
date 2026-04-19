@@ -25,6 +25,38 @@ $query_selesai = "SELECT COUNT(*) as selesai FROM pengaduan WHERE status='selesa
 $result_selesai = mysqli_query($conn, $query_selesai);
 $selesai = mysqli_fetch_assoc($result_selesai)['selesai'];
 
+// Get statistics untuk kategori curhat
+$query_kategori = "SELECT kategori, COUNT(*) as total 
+                   FROM chat 
+                   WHERE pengirim = 'siswa' AND kategori IS NOT NULL
+                   GROUP BY kategori
+                   ORDER BY total DESC";
+$result_kategori = mysqli_query($conn, $query_kategori);
+$kategori_stats = [];
+while ($row = mysqli_fetch_assoc($result_kategori)) {
+    $kategori_stats[] = $row;
+}
+
+// Default kategori jika tidak ada data
+$default_kategori = ['akademik', 'pribadi', 'sosial', 'keluarga', 'kesehatan', 'lainnya'];
+$kategori_labels = [];
+$kategori_data = [];
+
+foreach ($default_kategori as $kat) {
+    $kategori_labels[] = ucfirst($kat);
+    $found = false;
+    foreach ($kategori_stats as $stat) {
+        if ($stat['kategori'] == $kat) {
+            $kategori_data[] = $stat['total'];
+            $found = true;
+            break;
+        }
+    }
+    if (!$found) {
+        $kategori_data[] = 0;
+    }
+}
+
 // Get recent pengaduan
 $query_recent = "SELECT p.*, s.nama as nama_siswa FROM pengaduan p JOIN siswa s ON p.id_siswa = s.id_siswa ORDER BY p.tanggal DESC LIMIT 5";
 $result_recent = mysqli_query($conn, $query_recent);
@@ -40,6 +72,8 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
     <title>Dashboard Guru - Layanan Pengaduan</title>
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <style>
         .status-badge {
             display: inline-block;
@@ -92,6 +126,32 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
             text-align: center;
             letter-spacing: 0.5px;
         }
+        
+        /* Chart Styles */
+        .chart-section {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 350px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -143,6 +203,20 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
 
         </div>
 
+        <!-- Chart Kategori Curhat -->
+        <div class="chart-section">
+            <div class="chart-title">
+                <i class="fas fa-chart-bar" style="color: #667eea;"></i>
+                Statistik Kategori Curhat Siswa
+            </div>
+            <div class="chart-container">
+                <canvas id="kategoriChart"></canvas>
+            </div>
+            <p style="font-size: 12px; color: #999; text-align: center;">
+                Data menampilkan jumlah curhat siswa berdasarkan kategori yang dipilih saat mengirimkan curhat
+            </p>
+        </div>
+
         <!-- Tabel Pengaduan -->
         <div class="table-container">
 
@@ -185,6 +259,72 @@ while ($row = mysqli_fetch_assoc($result_recent)) {
     </div>
 
 </div>
+
+<script>
+    // Chart Kategori Curhat
+    const ctx = document.getElementById('kategoriChart');
+    if (ctx) {
+        const labels = <?php echo json_encode($kategori_labels); ?>;
+        const data = <?php echo json_encode($kategori_data); ?>;
+        
+        const colors = [
+            '#667eea',
+            '#764ba2',
+            '#f093fb',
+            '#4facfe',
+            '#00f2fe',
+            '#43e97b'
+        ];
+        Chart.register(ChartDataLabels);
+        
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah Curhat',
+                    data: data,
+                    backgroundColor: colors,
+                    borderColor: '#fff',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    datalabels: {
+                        color: '#fff',
+                        font: {
+                            weight: 'bold',
+                            size: 14
+                        },
+                        formatter: function(value, context) {
+                            return value > 0 ? value : '';
+                        }
+                    },
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                size: 12
+                            },
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed + ' curhat';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

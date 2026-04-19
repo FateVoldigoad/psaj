@@ -163,6 +163,22 @@ if ($curhat_terbaru) {
                     <?php endif; ?>
                 </div>
                 <?php endforeach; ?>
+                
+                <!-- Form Balasan Siswa -->
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 2px solid #e0e0e0;">
+                    <h3 style="color: #333; margin-bottom: 15px;">
+                        <i class="fas fa-reply"></i> Balas Kurasi Guru BK
+                    </h3>
+                    <form method="POST" action="../proses_curhat.php?aksi=balas">
+                        <div class="form-group">
+                            <textarea name="pesan" placeholder="Tuliskan balaasanmu kepada Guru BK... 💙" required maxlength="1000" style="width: 100%; padding: 12px; border-radius: 5px; border: 1px solid #ddd; font-family: Arial; font-size: 14px; resize: vertical; min-height: 100px; box-sizing: border-box;"></textarea>
+                            <small style="color: #999; display: block; margin-top: 5px;">Maksimal 1000 karakter</small>
+                        </div>
+                        <button type="submit" style="padding: 12px 25px; background: #6a1b9a; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.3s ease;">
+                            <i class="fas fa-paper-plane"></i> Kirim Balasan
+                        </button>
+                    </form>
+                </div>
             </div>
             <?php endif; ?>
         </div>
@@ -196,7 +212,16 @@ if ($curhat_terbaru) {
         document.getElementById('answerModal').style.display = 'none';
     }
 
-    
+    // Styling untuk tombol submit balasan
+    const replyButton = document.querySelector('button[type="submit"][style*="background: #6a1b9a"]');
+    if (replyButton) {
+        replyButton.addEventListener('mouseenter', function() {
+            this.style.background = '#7b2fa3';
+        });
+        replyButton.addEventListener('mouseleave', function() {
+            this.style.background = '#6a1b9a';
+        });
+    }
 </script>
 
 </body>

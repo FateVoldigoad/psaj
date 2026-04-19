@@ -40,8 +40,11 @@ if ($aksi == 'tanggapi') {
             
             $query_notif = "INSERT INTO notifikasi (id_siswa, id_bk, judul, pesan, tipe, status, link, waktu) 
                            VALUES ('$id_siswa', '$id_bk', '$judul_notif', '$pesan_notif', 'pengaduan', 'belum', '$link_notif', NOW())";
-            if (!mysqli_query($conn, $query_notif)) {
-                error_log("Gagal membuat notifikasi: " . mysqli_error($conn));
+            if (mysqli_query($conn, $query_notif)) {
+                $notif_id = mysqli_insert_id($conn);
+                error_log("Notifikasi pengaduan baru DIBUAT untuk siswa ID $id_siswa dengan ID notifikasi $notif_id pada " . date('Y-m-d H:i:s'));
+            } else {
+                error_log("Gagal membuat notifikasi pengaduan untuk siswa ID $id_siswa: " . mysqli_error($conn));
             }
             
             $_SESSION['pesan'] = 'Tanggapan berhasil dikirim!';
